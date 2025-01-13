@@ -1,0 +1,191 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>从Devops到MLOps再到LLMOps | ZCP妙妙屋</title><meta name="author" content="Chupeng Zheng"><meta name="copyright" content="Chupeng Zheng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="由ChatGPT翻译自原网址  从 CI&#x2F;CD 开始网上有很多关于 CI&#x2F;CD（持续集成&#x2F;持续交付）的定义，但其实所有和 XXXOps 相关的东西，都是基于 CI&#x2F;CD 的。 在我的理解中，CI&#x2F;CD 是一种开发和运维的实践，通过自动化构建、测试和部署流程，提升软件交付的效率和质量。 举个例子，想象你平时是怎么用 GitHub 和 Docker"><meta property="og:type" content="article"><meta property="og:title" content="从Devops到MLOps再到LLMOps"><meta property="og:url" content="https://zcpisme.github.io/2024/11/26/12_2024-11-03-XXXOps%20From%20Dev%20to%20LLM/index.html"><meta property="og:site_name" content="ZCP妙妙屋"><meta property="og:description" content="由ChatGPT翻译自原网址  从 CI&#x2F;CD 开始网上有很多关于 CI&#x2F;CD（持续集成&#x2F;持续交付）的定义，但其实所有和 XXXOps 相关的东西，都是基于 CI&#x2F;CD 的。 在我的理解中，CI&#x2F;CD 是一种开发和运维的实践，通过自动化构建、测试和部署流程，提升软件交付的效率和质量。 举个例子，想象你平时是怎么用 GitHub 和 Docker"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/zcpisme/image_hosting_service/12cover.png"><meta property="article:published_time" content="2024-11-27T02:34:49.000Z"><meta property="article:modified_time" content="2025-01-12T17:37:03.923Z"><meta property="article:author" content="Chupeng Zheng"><meta property="article:tag" content="Operations"><meta property="article:tag" content="DevOps"><meta property="article:tag" content="MLOps"><meta property="article:tag" content="LLMOps"><meta property="article:tag" content="Development"><meta property="article:tag" content="CI&#x2F;CD"><meta property="article:tag" content="持续集成"><meta property="article:tag" content="持续交付"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zcpisme/image_hosting_service/12cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "从Devops到MLOps再到LLMOps",
+  "url": "https://zcpisme.github.io/2024/11/26/12_2024-11-03-XXXOps%20From%20Dev%20to%20LLM/",
+  "image": "https://cdn.jsdelivr.net/gh/zcpisme/image_hosting_service/12cover.png",
+  "datePublished": "2024-11-27T02:34:49.000Z",
+  "dateModified": "2025-01-12T17:37:03.923Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chupeng Zheng",
+      "url": "https://zcpisme.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/zcpisme/image_hosting_service/favicon.png"><link rel="canonical" href="https://zcpisme.github.io/2024/11/26/12_2024-11-03-XXXOps%20From%20Dev%20to%20LLM/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>(() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-JSY5BEFW3M"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'G-JSY5BEFW3M')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'G-JSY5BEFW3M', {'page_path': window.location.pathname})
+}, 'google_analytics')</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE={title:"从Devops到MLOps再到LLMOps",isHighlightShrink:!1,isToc:!0,pageType:"post"}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://cdn.jsdelivr.net/gh/zcpisme/image_hosting_service/avatar.jpg" onerror='this.onerror=null,this.src="/img/friend_404.gif"' alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i> <span>首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i> <span>标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i> <span>分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i> <span>归档</span></a></div><div class="menus_item"><a class="site-page" href="/en/"><i class="fa-fw fas fa-language"></i> <span>English</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image:url(https://cdn.jsdelivr.net/gh/zcpisme/image_hosting_service/12cover.png)"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="https://cdn.jsdelivr.net/gh/zcpisme/image_hosting_service/favicon.png" alt="Logo"><span class="site-name">ZCP妙妙屋</span></a><a class="nav-page-title" href="/"><span class="site-name">从Devops到MLOps再到LLMOps</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i> <span>搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i> <span>首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i> <span>标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i> <span>分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i> <span>归档</span></a></div><div class="menus_item"><a class="site-page" href="/en/"><i class="fa-fw fas fa-language"></i> <span>English</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">从Devops到MLOps再到LLMOps</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-11-27T02:34:49.000Z" title="发表于 2024-11-26 20:34:49">2024-11-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-12T17:37:03.923Z" title="更新于 2025-01-12 11:37:03">2025-01-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CI-CD/">CI/CD</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">777</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><blockquote><p>由ChatGPT翻译自<a href="https://zcpisme.github.io/en/2024/11/26/12_2024-11-03-XXXOps%20From%20Dev%20to%20LLM/">原网址</a></p></blockquote><h2 id="从-CI-CD-开始"><a href="#从-CI-CD-开始" class="headerlink" title="从 CI&#x2F;CD 开始"></a>从 CI&#x2F;CD 开始</h2><p>网上有很多关于 CI&#x2F;CD（持续集成&#x2F;持续交付）的定义，但其实所有和 XXXOps 相关的东西，都是基于 CI&#x2F;CD 的。</p><p>在我的理解中，CI&#x2F;CD 是一种开发和运维的实践，<strong>通过自动化构建、测试和部署流程，提升软件交付的效率和质量。</strong></p><p>举个例子，想象你平时是怎么用 GitHub 和 Docker 的。当你把代码提交到远程仓库，代码会被自动编译、构建并测试，这些过程就属于 CI。而当你把代码部署到测试环境，最后上线到生产环境，这些步骤就属于 CD。</p><p>换句话说：</p><ul><li><strong>CI（持续集成）：</strong> 专注于代码的构建和测试，确保代码改动能够可靠地集成。</li><li><strong>CD（持续交付）：</strong> 专注于部署，确保代码能顺利从测试环境交付到生产环境。</li></ul><p>由此可以看出，DevOps（开发和运维）本质上就是 CI&#x2F;CD 流程的具体实现，让软件工程师的工作更简单高效。</p><hr><h2 id="MLOps：比-DevOps-更进一步"><a href="#MLOps：比-DevOps-更进一步" class="headerlink" title="MLOps：比 DevOps 更进一步"></a>MLOps：比 DevOps 更进一步</h2><p>MLOps 包含了 DevOps 的所有概念，但它的扩展范围还包括对数据、模型训练、分析和部署的管理。</p><p>此时，你可以想象，不仅需要管理代码版本，还需要管理<strong>数据版本</strong>（比如很多平台支持数据版本控制，像 Hopsworks，甚至只是用 Git 也行）以及<strong>模型版本</strong>（比如 MLflow 就能做到）。</p><p>总的来说，MLOps 就是在 DevOps 的基础上，专门针对机器学习的整个流程。</p><hr><h2 id="LLMOps：一个又潮又长的新名词"><a href="#LLMOps：一个又潮又长的新名词" class="headerlink" title="LLMOps：一个又潮又长的新名词"></a>LLMOps：一个又潮又长的新名词</h2><p>好吧，我不得不说，每次有新东西出来，人们就会喜欢创造新词来形容它。LLMOps（大语言模型运维）其实和 MLOps 没什么本质区别，唯一的不同是它专注于管理大语言模型，而不是传统的机器学习模型。</p><hr><h2 id="三者之间的关系"><a href="#三者之间的关系" class="headerlink" title="三者之间的关系"></a>三者之间的关系</h2><blockquote><p>ChatGPT 生成</p></blockquote><ul><li><strong>DevOps 是基础：</strong> DevOps 提供了 CI&#x2F;CD 管道和基础设施自动化的标准流程，是 MLOps 和 LLMOps 的基石。</li><li><strong>MLOps 是扩展：</strong> MLOps 将 DevOps 的实践扩展到机器学习领域，包括数据管理、模型训练和部署。</li><li><strong>LLMOps 是细化：</strong> LLMOps 专注于大语言模型的复杂训练、优化和部署，进一步细化了 MLOps 的实践，用于生成式 AI。</li></ul><hr><h2 id="接下来呢？"><a href="#接下来呢？" class="headerlink" title="接下来呢？"></a>接下来呢？</h2><p>酷，这篇文章只是对 XXXOps 的一个概述。我写它的原因是因为我这学期上了一门叫“MLOps”的课。一开始我以为它很高大上，后来发现其实就是教你怎么用各种工具把机器学习模型部署出来……</p><p>当然，这还不是唯一的原因。另一个原因是过去几个月“消失”的时候，我发现了一个很有意思的平台，叫 <a target="_blank" rel="noopener" href="https://github.com/langgenius/dify">Dify</a>。它可以让你自己创建 LLM 应用，有点像 LLMOps，非常酷！</p><table><thead><tr><th><img src="/../images/12/Megumin.png" alt="动漫角色:惠惠"></th><th><img src="/../images/12/difydemo.png" alt="Dify Demo"></th></tr></thead></table><p>下次见，我会和大家分享更多最近我在做的事情。😊</p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者:</span> <span class="post-copyright-info"><a href="https://zcpisme.github.io">Chupeng Zheng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接:</span> <span class="post-copyright-info"><a href="https://zcpisme.github.io/2024/11/26/12_2024-11-03-XXXOps%20From%20Dev%20to%20LLM/">https://zcpisme.github.io/2024/11/26/12_2024-11-03-XXXOps%20From%20Dev%20to%20LLM/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明:</span> <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zcpisme.github.io" target="_blank">ZCP妙妙屋</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Operations/">Operations</a><a class="post-meta__tags" href="/tags/DevOps/">DevOps</a><a class="post-meta__tags" href="/tags/MLOps/">MLOps</a><a class="post-meta__tags" href="/tags/LLMOps/">LLMOps</a><a class="post-meta__tags" href="/tags/Development/">Development</a><a class="post-meta__tags" href="/tags/CI-CD/">CI/CD</a><a class="post-meta__tags" href="/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/">持续集成</a><a class="post-meta__tags" href="/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/">持续交付</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/zcpisme/image_hosting_service/12cover.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload='this.media="all"'><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/01/12/15_2025-01-12-Docker%E9%83%A8%E7%BD%B2/" title="Docker相关使用及配置"><img class="cover" src="https://cdn.jsdelivr.net/gh/zcpisme/image_hosting_service/15cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-12</div><div class="info-item-2">Docker相关使用及配置</div></div><div class="info-2"><div class="info-item-1">快来试试一键式傻瓜分发，做一个docker领域大神吧！在软件开发的过程中，但凡遇到了CI&#x2F;CD的概念，就离不开Docker。 Docker基本概念1. Docker 简介Docker 是一种开源的容器化技术，可以将应用程序及其所有依赖打包成一个可移植的容器。通过 Docker，可以确保应用在不同环境（开发、测试、生产）中运行一致性，解决“在我电脑上可以运行”的问题。 2. Docker 的基本概念 镜像（Image）： 类似于应用程序的模板，包含了运行应用所需的所有环境（如操作系统、运行时、库、应用程序代码等）。 镜像是不可变的，类似于虚拟机的快照。 容器（Container）： 基于镜像创建的实例化运行环境。每个容器是一个独立的沙盒，包含应用和所有依赖。 容器是轻量级的，启动速度快，占用资源少。 Dockerfile： 一种脚本文件，用于定义如何构建镜像（包含操作系统、依赖安装、程序代码等）。 类似于虚拟机的配置文件。 Docker Hub： 一个公共的镜像存储库，类似于代码托管平台（如 GitHub）。可以从 Docker Hub...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/zcpisme/image_hosting_service/avatar.jpg" onerror='this.onerror=null,this.src="/img/friend_404.gif"' alt="avatar"></div><div class="author-info-name">Chupeng Zheng</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/zcpisme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chupeng-zheng-858348211/" target="_blank" title="linkedin"><i class="fab fa-linkedin"></i></a><a class="social-icon" href="mailto:zhengcp00@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">写日记是对自己说话，和对镜子说话一样，但后者有点神经病。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E-CI-CD-%E5%BC%80%E5%A7%8B"><span class="toc-text">从 CI&#x2F;CD 开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MLOps%EF%BC%9A%E6%AF%94-DevOps-%E6%9B%B4%E8%BF%9B%E4%B8%80%E6%AD%A5"><span class="toc-text">MLOps：比 DevOps 更进一步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LLMOps%EF%BC%9A%E4%B8%80%E4%B8%AA%E5%8F%88%E6%BD%AE%E5%8F%88%E9%95%BF%E7%9A%84%E6%96%B0%E5%90%8D%E8%AF%8D"><span class="toc-text">LLMOps：一个又潮又长的新名词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E8%80%85%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">三者之间的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%91%A2%EF%BC%9F"><span class="toc-text">接下来呢？</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/01/13/17_2025-01-13-VNPY%E4%B8%8EIB/" title="VNPY平台对接IB盈透证券"><img src="https://cdn.jsdelivr.net/gh/zcpisme/image_hosting_service/17cover.png" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="VNPY平台对接IB盈透证券"></a><div class="content"><a class="title" href="/2025/01/13/17_2025-01-13-VNPY%E4%B8%8EIB/" title="VNPY平台对接IB盈透证券">VNPY平台对接IB盈透证券</a><time datetime="2025-01-13T22:43:00.000Z" title="发表于 2025-01-13 16:43:00">2025-01-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/13/16_2025-01-13-VNPY%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/" title="VNPY平台入门"><img src="https://cdn.jsdelivr.net/gh/zcpisme/image_hosting_service/16cover.png" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="VNPY平台入门"></a><div class="content"><a class="title" href="/2025/01/13/16_2025-01-13-VNPY%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/" title="VNPY平台入门">VNPY平台入门</a><time datetime="2025-01-13T18:29:00.000Z" title="发表于 2025-01-13 12:29:00">2025-01-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/12/15_2025-01-12-Docker%E9%83%A8%E7%BD%B2/" title="Docker相关使用及配置"><img src="https://cdn.jsdelivr.net/gh/zcpisme/image_hosting_service/15cover.png" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="Docker相关使用及配置"></a><div class="content"><a class="title" href="/2025/01/12/15_2025-01-12-Docker%E9%83%A8%E7%BD%B2/" title="Docker相关使用及配置">Docker相关使用及配置</a><time datetime="2025-01-12T23:37:00.000Z" title="发表于 2025-01-12 17:37:00">2025-01-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/12/14_2025-01-12-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/" title="常用指令"><img src="https://cdn.jsdelivr.net/gh/zcpisme/image_hosting_service/14cover.png" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="常用指令"></a><div class="content"><a class="title" href="/2025/01/12/14_2025-01-12-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/" title="常用指令">常用指令</a><time datetime="2025-01-12T17:03:00.000Z" title="发表于 2025-01-12 11:03:00">2025-01-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/27/13_2024-11-26-AWS%E4%B8%8A%E7%9A%84Dify/" title="白嫖AWS EC2及使用Dify 0.12.1的心得（以及一点小小的宣传）"><img src="https://cdn.jsdelivr.net/gh/zcpisme/image_hosting_service/13cover.jpg" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="白嫖AWS EC2及使用Dify 0.12.1的心得（以及一点小小的宣传）"></a><div class="content"><a class="title" href="/2024/11/27/13_2024-11-26-AWS%E4%B8%8A%E7%9A%84Dify/" title="白嫖AWS EC2及使用Dify 0.12.1的心得（以及一点小小的宣传）">白嫖AWS EC2及使用Dify 0.12.1的心得（以及一点小小的宣传）</a><time datetime="2024-11-28T02:34:49.000Z" title="发表于 2024-11-27 20:34:49">2024-11-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script defer id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i> <span>数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
