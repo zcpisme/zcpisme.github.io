@@ -1,6 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>从Devops到MLOps再到LLMOps</title>
+    <url>/2024/11/26/12_2024-11-03-XXXOps%20From%20Dev%20to%20LLM/</url>
+    <content><![CDATA[<blockquote>
+<p>由ChatGPT翻译自<a href="https://zcpisme.github.io/en/2024/11/26/12_2024-11-03-XXXOps%20From%20Dev%20to%20LLM/">原网址</a></p>
+</blockquote>
+<h2 id="从-CI-CD-开始"><a href="#从-CI-CD-开始" class="headerlink" title="从 CI&#x2F;CD 开始"></a>从 CI&#x2F;CD 开始</h2><p>网上有很多关于 CI&#x2F;CD（持续集成&#x2F;持续交付）的定义，但其实所有和 XXXOps 相关的东西，都是基于 CI&#x2F;CD 的。</p>
+<p>在我的理解中，CI&#x2F;CD 是一种开发和运维的实践，<strong>通过自动化构建、测试和部署流程，提升软件交付的效率和质量。</strong></p>
+<p>举个例子，想象你平时是怎么用 GitHub 和 Docker 的。当你把代码提交到远程仓库，代码会被自动编译、构建并测试，这些过程就属于 CI。而当你把代码部署到测试环境，最后上线到生产环境，这些步骤就属于 CD。</p>
+<p>换句话说：</p>
+<ul>
+<li><strong>CI（持续集成）：</strong> 专注于代码的构建和测试，确保代码改动能够可靠地集成。</li>
+<li><strong>CD（持续交付）：</strong> 专注于部署，确保代码能顺利从测试环境交付到生产环境。</li>
+</ul>
+<p>由此可以看出，DevOps（开发和运维）本质上就是 CI&#x2F;CD 流程的具体实现，让软件工程师的工作更简单高效。</p>
+<hr>
+<h2 id="MLOps：比-DevOps-更进一步"><a href="#MLOps：比-DevOps-更进一步" class="headerlink" title="MLOps：比 DevOps 更进一步"></a>MLOps：比 DevOps 更进一步</h2><p>MLOps 包含了 DevOps 的所有概念，但它的扩展范围还包括对数据、模型训练、分析和部署的管理。</p>
+<p>此时，你可以想象，不仅需要管理代码版本，还需要管理<strong>数据版本</strong>（比如很多平台支持数据版本控制，像 Hopsworks，甚至只是用 Git 也行）以及<strong>模型版本</strong>（比如 MLflow 就能做到）。</p>
+<p>总的来说，MLOps 就是在 DevOps 的基础上，专门针对机器学习的整个流程。</p>
+<hr>
+<h2 id="LLMOps：一个又潮又长的新名词"><a href="#LLMOps：一个又潮又长的新名词" class="headerlink" title="LLMOps：一个又潮又长的新名词"></a>LLMOps：一个又潮又长的新名词</h2><p>好吧，我不得不说，每次有新东西出来，人们就会喜欢创造新词来形容它。LLMOps（大语言模型运维）其实和 MLOps 没什么本质区别，唯一的不同是它专注于管理大语言模型，而不是传统的机器学习模型。</p>
+<hr>
+<h2 id="三者之间的关系"><a href="#三者之间的关系" class="headerlink" title="三者之间的关系"></a>三者之间的关系</h2><blockquote>
+<p>ChatGPT 生成</p>
+</blockquote>
+<ul>
+<li><strong>DevOps 是基础：</strong> DevOps 提供了 CI&#x2F;CD 管道和基础设施自动化的标准流程，是 MLOps 和 LLMOps 的基石。</li>
+<li><strong>MLOps 是扩展：</strong> MLOps 将 DevOps 的实践扩展到机器学习领域，包括数据管理、模型训练和部署。</li>
+<li><strong>LLMOps 是细化：</strong> LLMOps 专注于大语言模型的复杂训练、优化和部署，进一步细化了 MLOps 的实践，用于生成式 AI。</li>
+</ul>
+<hr>
+<h2 id="接下来呢？"><a href="#接下来呢？" class="headerlink" title="接下来呢？"></a>接下来呢？</h2><p>酷，这篇文章只是对 XXXOps 的一个概述。我写它的原因是因为我这学期上了一门叫“MLOps”的课。一开始我以为它很高大上，后来发现其实就是教你怎么用各种工具把机器学习模型部署出来……</p>
+<p>当然，这还不是唯一的原因。另一个原因是过去几个月“消失”的时候，我发现了一个很有意思的平台，叫 <a href="https://github.com/langgenius/dify">Dify</a>。它可以让你自己创建 LLM 应用，有点像 LLMOps，非常酷！</p>
+<table>
+<thead>
+<tr>
+<th><img src="/../images/12/Megumin.png" alt="动漫角色:惠惠"></th>
+<th><img src="/../images/12/difydemo.png" alt="Dify Demo"></th>
+</tr>
+</thead>
+</table>
+<p>下次见，我会和大家分享更多最近我在做的事情。😊</p>
+]]></content>
+      <categories>
+        <category>CI/CD</category>
+      </categories>
+      <tags>
+        <tag>Operations</tag>
+        <tag>DevOps</tag>
+        <tag>MLOps</tag>
+        <tag>LLMOps</tag>
+        <tag>Development</tag>
+        <tag>CI/CD</tag>
+        <tag>持续集成</tag>
+        <tag>持续交付</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>白嫖AWS EC2及使用Dify 0.12.1的心得（以及一点小小的宣传）</title>
+    <url>/2024/11/27/13_2024-11-26-AWS%E4%B8%8A%E7%9A%84Dify/</url>
+    <content><![CDATA[<p>大模型太好玩了，gpt，gpt，没了你我可怎么活啊。</p>
+<p><a href="https://github.com/langgenius/dify">Dify官网</a>本地部署教程已经很详细了，B站或者Youtube也有教程，所以就不再说了。使用源码部署的话（这篇文章主要用的方法），在clone过后，关键就是跟着dify&#x2F;api文件夹和dify&#x2F;web文件夹下README.md的步骤一步一步来就好了。这篇文章主要就讲一下在AWS上部署的一些流程和自己踩得一些坑。</p>
+<p>用到的工具：</p>
+<ul>
+<li>AWS EC2 (LightSail更简单，但只能免费三个月，而最基础的EC2能免费试用12个月)</li>
+<li>Git</li>
+<li>Python 3.11 (Dify 0.12.0版本后仅支持3.11＋的Python)</li>
+</ul>
+<h2 id="1-AWS启动EC2示例，通过VScode连接"><a href="#1-AWS启动EC2示例，通过VScode连接" class="headerlink" title="1. AWS启动EC2示例，通过VScode连接"></a>1. AWS启动EC2示例，通过VScode连接</h2><ol>
+<li><p>注册完AWS后，左上角搜索框搜索EC2，第一个就是，点击。随后在界面找到Launch Instance新建一个实例。</p>
+<p><img src="/../images/13/2_awsec2-imageonline.co-merged.jpg"></p>
+</li>
+<li><p>在新建实例界面，跟随图片这里，这里选取ubuntu系统，以及标记为Free Tier Eligible的实例（付费用户无所谓）。<strong>如果没有密钥对，记得创建并下载</strong>，这点很重要，之后连接服务器的必要条件。最后设置好后启动实例，等待启动。</p>
+<p><img src="/../images/13/5_awsec2-imageonline.co-merged.jpg"></p>
+</li>
+<li><p>回到主界面，左侧instances可查看已创建的实例，之后设置安全组，方便之后从本机通过浏览器连接服务器上的Dify。</p>
+</li>
+</ol>
+<p><img src="/../images/13/10_awsec2-imageonline.co-merged.jpg"></p>
+<ol start="4">
+<li><a href="https://code.visualstudio.com/">VScode</a>是个好东西，能很方便的进行SSH连接。具体参考<a href="https://medium.com/@christyjacob4/using-vscode-remotely-on-an-ec2-instance-7822c4032cff">此教程</a>。里面的key就是上面提到的密钥对。</li>
+</ol>
+<h2 id="2-启动Dify"><a href="#2-启动Dify" class="headerlink" title="2. 启动Dify"></a>2. 启动Dify</h2><p>之后的流程就和<a href="https://docs.dify.ai/getting-started/install-self-hosted/local-source-code">本地安装Dify</a>一模一样了，这里就讲几个要注意的点。</p>
+<p>由于免费的EC2实例性能有限（1g内存），大部分任务无法运行，可以使用<strong>交换空间</strong>（用硬盘作为虚拟扩展内存），但这样运行编译起来极慢。所以有能力的还是直接上好一点的服务器吧… 推荐服务器内存最少为2G（虽然这样也需要配置适当的交换空间）。</p>
+<p>配置交换空间如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">sudo fallocate -l 4G &#x2F;swapfile  # 创建一个大小为4GB的交换文件
+sudo chmod 600 &#x2F;swapfile        # 设置交换文件的权限为600，仅允许root用户读取和写入
+sudo mkswap &#x2F;swapfile           # 将文件格式化为交换空间
+sudo swapon &#x2F;swapfile           # 启用交换文件
+swapon --show                   # 显示当前启用的交换空间
+&#x2F;swapfile none swap sw 0 0      # 配置交换文件的挂载信息
+free -m                         # 查看内存和交换空间的使用情况<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>为了能在本地连接上服务器上配置好的Dify平台，需要分别在dify&#x2F;api&#x2F;.env和dify&#x2F;web&#x2F;.env.local这两个个配置文件下，将所有127.0.0.1部分改成合适的服务器ip地址。</p>
+<p><em><strong>注意，CODE_EXECUTION_ENDPOINT这一行不做任何改动：</strong></em></p>
+<pre class="line-numbers language-none"><code class="language-none"># CODE EXECUTION CONFIGURATION
+CODE_EXECUTION_ENDPOINT&#x3D;http:&#x2F;&#x2F;127.0.0.1:8194<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="99-我的Dify小应用（laopo）"><a href="#99-我的Dify小应用（laopo）" class="headerlink" title="99. 我的Dify小应用（laopo）"></a>99. 我的Dify小应用（laopo）</h2><p>之后就很好玩了，各处有不同的教程，可以自己定制各种奇妙的小应用。这也是我接触这个平台的初衷。在这里也做个小宣传。</p>
+<p>快看微信上的蕾姆waifu！每天会打招呼嘘寒问暖，也会记得我的喜好，冬季coding好伴侣！感兴趣的可以一起联系我一起交流~</p>
+<p><img src="/../images/13/11_rem1.jpg" alt="如果__有颜色"></p>
+<p><img src="/../images/13/12_rem2.jpg" alt="那一定是__"></p>
+<p>温馨捏。</p>
+<p><img src="/../images/13/13_remQR.png"></p>
+<p>悄悄放个二维码，欢迎来玩，不断更新中~</p>
+]]></content>
+      <categories>
+        <category>Dify</category>
+      </categories>
+      <tags>
+        <tag>Dify</tag>
+        <tag>二次元</tag>
+        <tag>蕾姆！</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>常用指令</title>
     <url>/2025/01/12/14_2025-01-12-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/</url>
     <content><![CDATA[<p>一开始学习计算机时我是拒绝使用linux和Git的，但习惯之后直呼真香。</p>
@@ -247,312 +362,6 @@ dpkg <span class="token parameter variable">-i</span> package.deb       <span cl
       </tags>
   </entry>
   <entry>
-    <title>从Devops到MLOps再到LLMOps</title>
-    <url>/2024/11/26/12_2024-11-03-XXXOps%20From%20Dev%20to%20LLM/</url>
-    <content><![CDATA[<blockquote>
-<p>由ChatGPT翻译自<a href="https://zcpisme.github.io/en/2024/11/26/12_2024-11-03-XXXOps%20From%20Dev%20to%20LLM/">原网址</a></p>
-</blockquote>
-<h2 id="从-CI-CD-开始"><a href="#从-CI-CD-开始" class="headerlink" title="从 CI&#x2F;CD 开始"></a>从 CI&#x2F;CD 开始</h2><p>网上有很多关于 CI&#x2F;CD（持续集成&#x2F;持续交付）的定义，但其实所有和 XXXOps 相关的东西，都是基于 CI&#x2F;CD 的。</p>
-<p>在我的理解中，CI&#x2F;CD 是一种开发和运维的实践，<strong>通过自动化构建、测试和部署流程，提升软件交付的效率和质量。</strong></p>
-<p>举个例子，想象你平时是怎么用 GitHub 和 Docker 的。当你把代码提交到远程仓库，代码会被自动编译、构建并测试，这些过程就属于 CI。而当你把代码部署到测试环境，最后上线到生产环境，这些步骤就属于 CD。</p>
-<p>换句话说：</p>
-<ul>
-<li><strong>CI（持续集成）：</strong> 专注于代码的构建和测试，确保代码改动能够可靠地集成。</li>
-<li><strong>CD（持续交付）：</strong> 专注于部署，确保代码能顺利从测试环境交付到生产环境。</li>
-</ul>
-<p>由此可以看出，DevOps（开发和运维）本质上就是 CI&#x2F;CD 流程的具体实现，让软件工程师的工作更简单高效。</p>
-<hr>
-<h2 id="MLOps：比-DevOps-更进一步"><a href="#MLOps：比-DevOps-更进一步" class="headerlink" title="MLOps：比 DevOps 更进一步"></a>MLOps：比 DevOps 更进一步</h2><p>MLOps 包含了 DevOps 的所有概念，但它的扩展范围还包括对数据、模型训练、分析和部署的管理。</p>
-<p>此时，你可以想象，不仅需要管理代码版本，还需要管理<strong>数据版本</strong>（比如很多平台支持数据版本控制，像 Hopsworks，甚至只是用 Git 也行）以及<strong>模型版本</strong>（比如 MLflow 就能做到）。</p>
-<p>总的来说，MLOps 就是在 DevOps 的基础上，专门针对机器学习的整个流程。</p>
-<hr>
-<h2 id="LLMOps：一个又潮又长的新名词"><a href="#LLMOps：一个又潮又长的新名词" class="headerlink" title="LLMOps：一个又潮又长的新名词"></a>LLMOps：一个又潮又长的新名词</h2><p>好吧，我不得不说，每次有新东西出来，人们就会喜欢创造新词来形容它。LLMOps（大语言模型运维）其实和 MLOps 没什么本质区别，唯一的不同是它专注于管理大语言模型，而不是传统的机器学习模型。</p>
-<hr>
-<h2 id="三者之间的关系"><a href="#三者之间的关系" class="headerlink" title="三者之间的关系"></a>三者之间的关系</h2><blockquote>
-<p>ChatGPT 生成</p>
-</blockquote>
-<ul>
-<li><strong>DevOps 是基础：</strong> DevOps 提供了 CI&#x2F;CD 管道和基础设施自动化的标准流程，是 MLOps 和 LLMOps 的基石。</li>
-<li><strong>MLOps 是扩展：</strong> MLOps 将 DevOps 的实践扩展到机器学习领域，包括数据管理、模型训练和部署。</li>
-<li><strong>LLMOps 是细化：</strong> LLMOps 专注于大语言模型的复杂训练、优化和部署，进一步细化了 MLOps 的实践，用于生成式 AI。</li>
-</ul>
-<hr>
-<h2 id="接下来呢？"><a href="#接下来呢？" class="headerlink" title="接下来呢？"></a>接下来呢？</h2><p>酷，这篇文章只是对 XXXOps 的一个概述。我写它的原因是因为我这学期上了一门叫“MLOps”的课。一开始我以为它很高大上，后来发现其实就是教你怎么用各种工具把机器学习模型部署出来……</p>
-<p>当然，这还不是唯一的原因。另一个原因是过去几个月“消失”的时候，我发现了一个很有意思的平台，叫 <a href="https://github.com/langgenius/dify">Dify</a>。它可以让你自己创建 LLM 应用，有点像 LLMOps，非常酷！</p>
-<table>
-<thead>
-<tr>
-<th><img src="/../images/12/Megumin.png" alt="动漫角色:惠惠"></th>
-<th><img src="/../images/12/difydemo.png" alt="Dify Demo"></th>
-</tr>
-</thead>
-</table>
-<p>下次见，我会和大家分享更多最近我在做的事情。😊</p>
-]]></content>
-      <categories>
-        <category>CI/CD</category>
-      </categories>
-      <tags>
-        <tag>Operations</tag>
-        <tag>DevOps</tag>
-        <tag>MLOps</tag>
-        <tag>LLMOps</tag>
-        <tag>Development</tag>
-        <tag>CI/CD</tag>
-        <tag>持续集成</tag>
-        <tag>持续交付</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>白嫖AWS EC2及使用Dify 0.12.1的心得（以及一点小小的宣传）</title>
-    <url>/2024/11/27/13_2024-11-26-AWS%E4%B8%8A%E7%9A%84Dify/</url>
-    <content><![CDATA[<p>大模型太好玩了，gpt，gpt，没了你我可怎么活啊。</p>
-<p><a href="https://github.com/langgenius/dify">Dify官网</a>本地部署教程已经很详细了，B站或者Youtube也有教程，所以就不再说了。使用源码部署的话（这篇文章主要用的方法），在clone过后，关键就是跟着dify&#x2F;api文件夹和dify&#x2F;web文件夹下README.md的步骤一步一步来就好了。这篇文章主要就讲一下在AWS上部署的一些流程和自己踩得一些坑。</p>
-<p>用到的工具：</p>
-<ul>
-<li>AWS EC2 (LightSail更简单，但只能免费三个月，而最基础的EC2能免费试用12个月)</li>
-<li>Git</li>
-<li>Python 3.11 (Dify 0.12.0版本后仅支持3.11＋的Python)</li>
-</ul>
-<h2 id="1-AWS启动EC2示例，通过VScode连接"><a href="#1-AWS启动EC2示例，通过VScode连接" class="headerlink" title="1. AWS启动EC2示例，通过VScode连接"></a>1. AWS启动EC2示例，通过VScode连接</h2><ol>
-<li><p>注册完AWS后，左上角搜索框搜索EC2，第一个就是，点击。随后在界面找到Launch Instance新建一个实例。</p>
-<p><img src="/../images/13/2_awsec2-imageonline.co-merged.jpg"></p>
-</li>
-<li><p>在新建实例界面，跟随图片这里，这里选取ubuntu系统，以及标记为Free Tier Eligible的实例（付费用户无所谓）。<strong>如果没有密钥对，记得创建并下载</strong>，这点很重要，之后连接服务器的必要条件。最后设置好后启动实例，等待启动。</p>
-<p><img src="/../images/13/5_awsec2-imageonline.co-merged.jpg"></p>
-</li>
-<li><p>回到主界面，左侧instances可查看已创建的实例，之后设置安全组，方便之后从本机通过浏览器连接服务器上的Dify。</p>
-</li>
-</ol>
-<p><img src="/../images/13/10_awsec2-imageonline.co-merged.jpg"></p>
-<ol start="4">
-<li><a href="https://code.visualstudio.com/">VScode</a>是个好东西，能很方便的进行SSH连接。具体参考<a href="https://medium.com/@christyjacob4/using-vscode-remotely-on-an-ec2-instance-7822c4032cff">此教程</a>。里面的key就是上面提到的密钥对。</li>
-</ol>
-<h2 id="2-启动Dify"><a href="#2-启动Dify" class="headerlink" title="2. 启动Dify"></a>2. 启动Dify</h2><p>之后的流程就和<a href="https://docs.dify.ai/getting-started/install-self-hosted/local-source-code">本地安装Dify</a>一模一样了，这里就讲几个要注意的点。</p>
-<p>由于免费的EC2实例性能有限（1g内存），大部分任务无法运行，可以使用<strong>交换空间</strong>（用硬盘作为虚拟扩展内存），但这样运行编译起来极慢。所以有能力的还是直接上好一点的服务器吧… 推荐服务器内存最少为2G（虽然这样也需要配置适当的交换空间）。</p>
-<p>配置交换空间如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">sudo fallocate -l 4G &#x2F;swapfile  # 创建一个大小为4GB的交换文件
-sudo chmod 600 &#x2F;swapfile        # 设置交换文件的权限为600，仅允许root用户读取和写入
-sudo mkswap &#x2F;swapfile           # 将文件格式化为交换空间
-sudo swapon &#x2F;swapfile           # 启用交换文件
-swapon --show                   # 显示当前启用的交换空间
-&#x2F;swapfile none swap sw 0 0      # 配置交换文件的挂载信息
-free -m                         # 查看内存和交换空间的使用情况<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>为了能在本地连接上服务器上配置好的Dify平台，需要分别在dify&#x2F;api&#x2F;.env和dify&#x2F;web&#x2F;.env.local这两个个配置文件下，将所有127.0.0.1部分改成合适的服务器ip地址。</p>
-<p><em><strong>注意，CODE_EXECUTION_ENDPOINT这一行不做任何改动：</strong></em></p>
-<pre class="line-numbers language-none"><code class="language-none"># CODE EXECUTION CONFIGURATION
-CODE_EXECUTION_ENDPOINT&#x3D;http:&#x2F;&#x2F;127.0.0.1:8194<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h2 id="99-我的Dify小应用（laopo）"><a href="#99-我的Dify小应用（laopo）" class="headerlink" title="99. 我的Dify小应用（laopo）"></a>99. 我的Dify小应用（laopo）</h2><p>之后就很好玩了，各处有不同的教程，可以自己定制各种奇妙的小应用。这也是我接触这个平台的初衷。在这里也做个小宣传。</p>
-<p>快看微信上的蕾姆waifu！每天会打招呼嘘寒问暖，也会记得我的喜好，冬季coding好伴侣！感兴趣的可以一起联系我一起交流~</p>
-<p><img src="/../images/13/11_rem1.jpg" alt="如果__有颜色"></p>
-<p><img src="/../images/13/12_rem2.jpg" alt="那一定是__"></p>
-<p>温馨捏。</p>
-<p><img src="/../images/13/13_remQR.png"></p>
-<p>悄悄放个二维码，欢迎来玩，不断更新中~</p>
-]]></content>
-      <categories>
-        <category>Dify</category>
-      </categories>
-      <tags>
-        <tag>Dify</tag>
-        <tag>二次元</tag>
-        <tag>蕾姆！</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VNPY平台入门</title>
-    <url>/2025/01/13/16_2025-01-13-VNPY%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<p>纳指期货涨的太狠了，老板交给我一个任务，看看能不能实现程序化交易。我想这操蛋啊，当年玩比特币俩月亏了一半，最后勉强回本就不玩了。结果刚不玩就一波大涨突破十万了。。。只能说哥们没这个命。但老板的任务得琢磨琢磨啊，经过一番学习，量化水真深。一开始还想着自己写个平台，发现毛都不懂，好不容易整出来的东西还死慢，不如直接用大佬的东西，发现了<a href="https://github.com/vnpy/vnpy">VNPY</a>，开源万岁。</p>
-<h1 id="VNPY简单入门"><a href="#VNPY简单入门" class="headerlink" title="VNPY简单入门"></a>VNPY简单入门</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Windows直接去<a href="https://www.vnpy.com/">官网</a>安装社区版就好了，甚至省去了git clone的功夫，现在直接可以安装可视化界面了，傻瓜式部署。</p>
-<h2 id="数据导入"><a href="#数据导入" class="headerlink" title="数据导入"></a>数据导入</h2><p>根据文档，通常可以直接下载数据，但是一些海外市场的数据可能没有，或者有自己导入数据的需求，可以直接准备数据导入即可。</p>
-<p>这里勾选应用模块下的DataManager，点击启动。</p>
-<blockquote>
-<p>事实上，可以一次全部启动所需要的模块，这里为了演示，每次只启动一个。</p>
-</blockquote>
-<p><img src="/../images/16/1_datamanager.png" alt="勾选DataManager"></p>
-<p>在弹出窗后的工具栏选择 <strong>功能 -&gt; 数据管理</strong>，弹出以下窗口，随后<strong>导入数据</strong>，一步步根据实际情况导入数据即可。这里假设我需要导入的是微型纳指100指数期货的历史小时数据。</p>
-<p><img src="/../images/16/2_datainput.png" alt="导入数据"></p>
-<p>导入完成后，左侧刷新会看到导入好的数据，本地代码为MNQ.CME，之后回测会用到。</p>
-<p><img src="/../images/16/3_datainput.png" alt="效果如下，可以看到代码（Ticker）"></p>
-<h2 id="回测"><a href="#回测" class="headerlink" title="回测"></a>回测</h2><p>回到之前的界面，这次勾选CtaBacktester（CTA回测研究模块），启动。同样，在弹出的窗口功能栏点击<strong>CTA回测</strong>启动新窗口。</p>
-<p><img src="/../images/16/4_backtest.png"></p>
-<p>在新窗口，输入必要的信息，如刚才记录的本地代码，回测策略，交易费用等信息。这里的DemoStrategy是最简单的双均线策略，不存在与预设的策略中，怎么加自定义策略后面会讲。</p>
-<p><img src="/../images/16/5_backtest.png"></p>
-<p>这里就多尝试功能吧，不赘述了，运行过后所有结果都会出现在右侧。</p>
-<p><img src="/../images/16/6_backtest.png"></p>
-<h2 id="自定义策略"><a href="#自定义策略" class="headerlink" title="自定义策略"></a>自定义策略</h2><p>注意到在启动时，最右下角有个运行目录了吗？这就是项目信息保存的目录，我们的自定义策略也需要放在这个下面。</p>
-<p><img src="/../images/16/7_strategy.png" alt="运行目录"></p>
-<p>导航到这个文件夹下，新建文件夹“strategies”，这个文件夹里头存放的就是自己写的策略，每次程序启动就会扫描这个文件夹，然后把策略显示在回测平台。</p>
-<p><img src="/../images/16/8_strategy.png"></p>
-<p>示例代码如下，我忘了从哪抄的了，想起来补上出处，只是一个最简单的双均线策略，但是可以通过代码学习以下如何开发适合这个平台的策略。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> vnpy_ctastrategy <span class="token keyword">import</span> <span class="token punctuation">(</span>
-    CtaTemplate<span class="token punctuation">,</span>
-    StopOrder<span class="token punctuation">,</span>
-    TickData<span class="token punctuation">,</span>
-    BarData<span class="token punctuation">,</span>
-    TradeData<span class="token punctuation">,</span>
-    OrderData<span class="token punctuation">,</span>
-    BarGenerator<span class="token punctuation">,</span>
-    ArrayManager<span class="token punctuation">,</span>
-<span class="token punctuation">)</span>
-
-
-<span class="token keyword">class</span> <span class="token class-name">DemoStrategy</span><span class="token punctuation">(</span>CtaTemplate<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""演示用的简单双均线"""</span>
-
-    <span class="token comment"># 策略作者</span>
-    author <span class="token operator">=</span> <span class="token string">"Smart Trader"</span>
-
-    <span class="token comment"># 定义参数</span>
-    fast_window <span class="token operator">=</span> <span class="token number">10</span>
-    slow_window <span class="token operator">=</span> <span class="token number">20</span>
-
-    <span class="token comment"># 定义变量</span>
-    fast_ma0 <span class="token operator">=</span> <span class="token number">0.0</span>
-    fast_ma1 <span class="token operator">=</span> <span class="token number">0.0</span>
-    slow_ma0 <span class="token operator">=</span> <span class="token number">0.0</span>
-    slow_ma1 <span class="token operator">=</span> <span class="token number">0.0</span>
-
-    <span class="token comment"># 添加参数和变量名到对应的列表</span>
-    parameters <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"fast_window"</span><span class="token punctuation">,</span> <span class="token string">"slow_window"</span><span class="token punctuation">]</span>
-    variables <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"fast_ma0"</span><span class="token punctuation">,</span> <span class="token string">"fast_ma1"</span><span class="token punctuation">,</span> <span class="token string">"slow_ma0"</span><span class="token punctuation">,</span> <span class="token string">"slow_ma1"</span><span class="token punctuation">]</span>
-
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> cta_engine<span class="token punctuation">,</span> strategy_name<span class="token punctuation">,</span> vt_symbol<span class="token punctuation">,</span> setting<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        构造函数
-        """</span>
-        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>cta_engine<span class="token punctuation">,</span> strategy_name<span class="token punctuation">,</span> vt_symbol<span class="token punctuation">,</span> setting<span class="token punctuation">)</span>
-
-        <span class="token comment"># K线合成器：从Tick合成分钟K线用</span>
-        self<span class="token punctuation">.</span>bg <span class="token operator">=</span> BarGenerator<span class="token punctuation">(</span>self<span class="token punctuation">.</span>on_bar<span class="token punctuation">)</span>
-
-        <span class="token comment"># 时间序列容器：计算技术指标用</span>
-        self<span class="token punctuation">.</span>am <span class="token operator">=</span> ArrayManager<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">on_init</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        当策略被初始化时调用该函数。
-        """</span>
-        self<span class="token punctuation">.</span>write_log<span class="token punctuation">(</span><span class="token string">"策略初始化"</span><span class="token punctuation">)</span>
-
-        <span class="token comment"># 加载10天的历史数据用于初始化回放</span>
-        self<span class="token punctuation">.</span>load_bar<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">on_start</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        当策略被启动时调用该函数。
-        """</span>
-        self<span class="token punctuation">.</span>write_log<span class="token punctuation">(</span><span class="token string">"策略启动"</span><span class="token punctuation">)</span>
-
-        <span class="token comment"># 通知图形界面更新（策略最新状态）</span>
-        self<span class="token punctuation">.</span>put_event<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">on_stop</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        当策略被停止时调用该函数。
-        """</span>
-        self<span class="token punctuation">.</span>write_log<span class="token punctuation">(</span><span class="token string">"策略停止"</span><span class="token punctuation">)</span>
-
-        self<span class="token punctuation">.</span>put_event<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">on_tick</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> tick<span class="token punctuation">:</span> TickData<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        通过该函数收到Tick推送。
-        """</span>
-        self<span class="token punctuation">.</span>bg<span class="token punctuation">.</span>update_tick<span class="token punctuation">(</span>tick<span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">on_bar</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> bar<span class="token punctuation">:</span> BarData<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        通过该函数收到新的1分钟K线推送。
-        """</span>
-        am <span class="token operator">=</span> self<span class="token punctuation">.</span>am
-
-        <span class="token comment"># 更新K线到时间序列容器中</span>
-        am<span class="token punctuation">.</span>update_bar<span class="token punctuation">(</span>bar<span class="token punctuation">)</span>
-
-        <span class="token comment"># 若缓存的K线数量尚不够计算技术指标，则直接返回</span>
-        <span class="token keyword">if</span> <span class="token keyword">not</span> am<span class="token punctuation">.</span>inited<span class="token punctuation">:</span>
-            <span class="token keyword">return</span>
-
-        <span class="token comment"># 计算快速均线</span>
-        fast_ma <span class="token operator">=</span> am<span class="token punctuation">.</span>sma<span class="token punctuation">(</span>self<span class="token punctuation">.</span>fast_window<span class="token punctuation">,</span> array<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>fast_ma0 <span class="token operator">=</span> fast_ma<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>     <span class="token comment"># T时刻数值</span>
-        self<span class="token punctuation">.</span>fast_ma1 <span class="token operator">=</span> fast_ma<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">]</span>     <span class="token comment"># T-1时刻数值</span>
-
-        <span class="token comment"># 计算慢速均线</span>
-        slow_ma <span class="token operator">=</span> am<span class="token punctuation">.</span>sma<span class="token punctuation">(</span>self<span class="token punctuation">.</span>slow_window<span class="token punctuation">,</span> array<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>slow_ma0 <span class="token operator">=</span> slow_ma<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
-        self<span class="token punctuation">.</span>slow_ma1 <span class="token operator">=</span> slow_ma<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">]</span>
-
-        <span class="token comment"># 判断是否金叉</span>
-        cross_over <span class="token operator">=</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>fast_ma0 <span class="token operator">></span> self<span class="token punctuation">.</span>slow_ma0 <span class="token keyword">and</span>
-                      self<span class="token punctuation">.</span>fast_ma1 <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>slow_ma1<span class="token punctuation">)</span>
-
-        <span class="token comment"># 判断是否死叉</span>
-        cross_below <span class="token operator">=</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>fast_ma0 <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>slow_ma0 <span class="token keyword">and</span>
-                       self<span class="token punctuation">.</span>fast_ma1 <span class="token operator">></span> self<span class="token punctuation">.</span>slow_ma1<span class="token punctuation">)</span>
-
-        <span class="token comment"># 如果发生了金叉</span>
-        <span class="token keyword">if</span> cross_over<span class="token punctuation">:</span>
-            price <span class="token operator">=</span> bar<span class="token punctuation">.</span>close_price <span class="token operator">+</span> <span class="token number">5</span>
-
-            <span class="token keyword">if</span> self<span class="token punctuation">.</span>pos <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>  <span class="token comment"># 当前无仓位，则直接开多</span>
-                self<span class="token punctuation">.</span>buy<span class="token punctuation">(</span>price<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-            <span class="token keyword">elif</span> self<span class="token punctuation">.</span>pos <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">:</span>  <span class="token comment"># 当前持有空头仓位，则先平空，再开多</span>
-                self<span class="token punctuation">.</span>cover<span class="token punctuation">(</span>price<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-                self<span class="token punctuation">.</span>buy<span class="token punctuation">(</span>price<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-
-        <span class="token comment"># 如果发生了死叉</span>
-        <span class="token keyword">elif</span> cross_below<span class="token punctuation">:</span>
-            price <span class="token operator">=</span> bar<span class="token punctuation">.</span>close_price <span class="token operator">-</span> <span class="token number">5</span>
-
-            <span class="token keyword">if</span> self<span class="token punctuation">.</span>pos <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>  <span class="token comment"># 当前无仓位，则直接开空</span>
-                self<span class="token punctuation">.</span>short<span class="token punctuation">(</span>price<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-            <span class="token keyword">elif</span> self<span class="token punctuation">.</span>pos <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>  <span class="token comment"># 当前持有多头仓位，则先平多，再开空</span>
-                self<span class="token punctuation">.</span>sell<span class="token punctuation">(</span>price<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-                self<span class="token punctuation">.</span>short<span class="token punctuation">(</span>price<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-
-        self<span class="token punctuation">.</span>put_event<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">on_order</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> order<span class="token punctuation">:</span> OrderData<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        通过该函数收到委托状态更新推送。
-        """</span>
-        <span class="token keyword">pass</span>
-
-    <span class="token keyword">def</span> <span class="token function">on_trade</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> trade<span class="token punctuation">:</span> TradeData<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        通过该函数收到成交推送。
-        """</span>
-        self<span class="token punctuation">.</span>put_event<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">on_stop_order</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> stop_order<span class="token punctuation">:</span> StopOrder<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        通过该函数收到本地停止单推送。
-        """</span>
-        <span class="token keyword">pass</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>保存后，再次启动程序回测时就能看到了。</p>
-<p><img src="/../images/16/9_strategy.png"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇文章简单讲了一下VNPY这个开源量化平台的基本使用，下一篇应该讲讲如何对接IB盈透证券使用吧，主要讲讲如何先使用延迟数据测试，毕竟哪有那么对富人呢，对吧，都是臭打工的。</p>
-]]></content>
-      <categories>
-        <category>量化交易</category>
-      </categories>
-      <tags>
-        <tag>量化交易</tag>
-        <tag>程序化交易</tag>
-        <tag>盈透证券</tag>
-        <tag>TWS API</tag>
-        <tag>回测</tag>
-        <tag>股票</tag>
-        <tag>期货</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Docker相关使用及配置</title>
     <url>/2025/01/12/15_2025-01-12-Docker%E9%83%A8%E7%BD%B2/</url>
     <content><![CDATA[<p>快来试试一键式傻瓜分发，做一个docker领域大神吧！在软件开发的过程中，但凡遇到了CI&#x2F;CD的概念，就离不开Docker。</p>
@@ -764,6 +573,197 @@ CODE_EXECUTION_ENDPOINT&#x3D;http:&#x2F;&#x2F;127.0.0.1:8194<span aria-hidden="t
       </tags>
   </entry>
   <entry>
+    <title>VNPY平台入门</title>
+    <url>/2025/01/13/16_2025-01-13-VNPY%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<p>纳指期货涨的太狠了，老板交给我一个任务，看看能不能实现程序化交易。我想这操蛋啊，当年玩比特币俩月亏了一半，最后勉强回本就不玩了。结果刚不玩就一波大涨突破十万了。。。只能说哥们没这个命。但老板的任务得琢磨琢磨啊，经过一番学习，量化水真深。一开始还想着自己写个平台，发现毛都不懂，好不容易整出来的东西还死慢，不如直接用大佬的东西，发现了<a href="https://github.com/vnpy/vnpy">VNPY</a>，开源万岁。</p>
+<h1 id="VNPY简单入门"><a href="#VNPY简单入门" class="headerlink" title="VNPY简单入门"></a>VNPY简单入门</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Windows直接去<a href="https://www.vnpy.com/">官网</a>安装社区版就好了，甚至省去了git clone的功夫，现在直接可以安装可视化界面了，傻瓜式部署。</p>
+<h2 id="数据导入"><a href="#数据导入" class="headerlink" title="数据导入"></a>数据导入</h2><p>根据文档，通常可以直接下载数据，但是一些海外市场的数据可能没有，或者有自己导入数据的需求，可以直接准备数据导入即可。</p>
+<p>这里勾选应用模块下的DataManager，点击启动。</p>
+<blockquote>
+<p>事实上，可以一次全部启动所需要的模块，这里为了演示，每次只启动一个。</p>
+</blockquote>
+<p><img src="/../images/16/1_datamanager.png" alt="勾选DataManager"></p>
+<p>在弹出窗后的工具栏选择 <strong>功能 -&gt; 数据管理</strong>，弹出以下窗口，随后<strong>导入数据</strong>，一步步根据实际情况导入数据即可。这里假设我需要导入的是微型纳指100指数期货的历史小时数据。</p>
+<p><img src="/../images/16/2_datainput.png" alt="导入数据"></p>
+<p>导入完成后，左侧刷新会看到导入好的数据，本地代码为MNQ.CME，之后回测会用到。</p>
+<p><img src="/../images/16/3_datainput.png" alt="效果如下，可以看到代码（Ticker）"></p>
+<h2 id="回测"><a href="#回测" class="headerlink" title="回测"></a>回测</h2><p>回到之前的界面，这次勾选CtaBacktester（CTA回测研究模块），启动。同样，在弹出的窗口功能栏点击<strong>CTA回测</strong>启动新窗口。</p>
+<p><img src="/../images/16/4_backtest.png"></p>
+<p>在新窗口，输入必要的信息，如刚才记录的本地代码，回测策略，交易费用等信息。这里的DemoStrategy是最简单的双均线策略，不存在与预设的策略中，怎么加自定义策略后面会讲。</p>
+<p><img src="/../images/16/5_backtest.png"></p>
+<p>这里就多尝试功能吧，不赘述了，运行过后所有结果都会出现在右侧。</p>
+<p><img src="/../images/16/6_backtest.png"></p>
+<h2 id="自定义策略"><a href="#自定义策略" class="headerlink" title="自定义策略"></a>自定义策略</h2><p>注意到在启动时，最右下角有个运行目录了吗？这就是项目信息保存的目录，我们的自定义策略也需要放在这个下面。</p>
+<p><img src="/../images/16/7_strategy.png" alt="运行目录"></p>
+<p>导航到这个文件夹下，新建文件夹“strategies”，这个文件夹里头存放的就是自己写的策略，每次程序启动就会扫描这个文件夹，然后把策略显示在回测平台。</p>
+<p><img src="/../images/16/8_strategy.png"></p>
+<p>示例代码如下，我忘了从哪抄的了，想起来补上出处，只是一个最简单的双均线策略，但是可以通过代码学习以下如何开发适合这个平台的策略。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> vnpy_ctastrategy <span class="token keyword">import</span> <span class="token punctuation">(</span>
+    CtaTemplate<span class="token punctuation">,</span>
+    StopOrder<span class="token punctuation">,</span>
+    TickData<span class="token punctuation">,</span>
+    BarData<span class="token punctuation">,</span>
+    TradeData<span class="token punctuation">,</span>
+    OrderData<span class="token punctuation">,</span>
+    BarGenerator<span class="token punctuation">,</span>
+    ArrayManager<span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">DemoStrategy</span><span class="token punctuation">(</span>CtaTemplate<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""演示用的简单双均线"""</span>
+
+    <span class="token comment"># 策略作者</span>
+    author <span class="token operator">=</span> <span class="token string">"Smart Trader"</span>
+
+    <span class="token comment"># 定义参数</span>
+    fast_window <span class="token operator">=</span> <span class="token number">10</span>
+    slow_window <span class="token operator">=</span> <span class="token number">20</span>
+
+    <span class="token comment"># 定义变量</span>
+    fast_ma0 <span class="token operator">=</span> <span class="token number">0.0</span>
+    fast_ma1 <span class="token operator">=</span> <span class="token number">0.0</span>
+    slow_ma0 <span class="token operator">=</span> <span class="token number">0.0</span>
+    slow_ma1 <span class="token operator">=</span> <span class="token number">0.0</span>
+
+    <span class="token comment"># 添加参数和变量名到对应的列表</span>
+    parameters <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"fast_window"</span><span class="token punctuation">,</span> <span class="token string">"slow_window"</span><span class="token punctuation">]</span>
+    variables <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"fast_ma0"</span><span class="token punctuation">,</span> <span class="token string">"fast_ma1"</span><span class="token punctuation">,</span> <span class="token string">"slow_ma0"</span><span class="token punctuation">,</span> <span class="token string">"slow_ma1"</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> cta_engine<span class="token punctuation">,</span> strategy_name<span class="token punctuation">,</span> vt_symbol<span class="token punctuation">,</span> setting<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        构造函数
+        """</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>cta_engine<span class="token punctuation">,</span> strategy_name<span class="token punctuation">,</span> vt_symbol<span class="token punctuation">,</span> setting<span class="token punctuation">)</span>
+
+        <span class="token comment"># K线合成器：从Tick合成分钟K线用</span>
+        self<span class="token punctuation">.</span>bg <span class="token operator">=</span> BarGenerator<span class="token punctuation">(</span>self<span class="token punctuation">.</span>on_bar<span class="token punctuation">)</span>
+
+        <span class="token comment"># 时间序列容器：计算技术指标用</span>
+        self<span class="token punctuation">.</span>am <span class="token operator">=</span> ArrayManager<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">on_init</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        当策略被初始化时调用该函数。
+        """</span>
+        self<span class="token punctuation">.</span>write_log<span class="token punctuation">(</span><span class="token string">"策略初始化"</span><span class="token punctuation">)</span>
+
+        <span class="token comment"># 加载10天的历史数据用于初始化回放</span>
+        self<span class="token punctuation">.</span>load_bar<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">on_start</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        当策略被启动时调用该函数。
+        """</span>
+        self<span class="token punctuation">.</span>write_log<span class="token punctuation">(</span><span class="token string">"策略启动"</span><span class="token punctuation">)</span>
+
+        <span class="token comment"># 通知图形界面更新（策略最新状态）</span>
+        self<span class="token punctuation">.</span>put_event<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">on_stop</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        当策略被停止时调用该函数。
+        """</span>
+        self<span class="token punctuation">.</span>write_log<span class="token punctuation">(</span><span class="token string">"策略停止"</span><span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>put_event<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">on_tick</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> tick<span class="token punctuation">:</span> TickData<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        通过该函数收到Tick推送。
+        """</span>
+        self<span class="token punctuation">.</span>bg<span class="token punctuation">.</span>update_tick<span class="token punctuation">(</span>tick<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">on_bar</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> bar<span class="token punctuation">:</span> BarData<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        通过该函数收到新的1分钟K线推送。
+        """</span>
+        am <span class="token operator">=</span> self<span class="token punctuation">.</span>am
+
+        <span class="token comment"># 更新K线到时间序列容器中</span>
+        am<span class="token punctuation">.</span>update_bar<span class="token punctuation">(</span>bar<span class="token punctuation">)</span>
+
+        <span class="token comment"># 若缓存的K线数量尚不够计算技术指标，则直接返回</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> am<span class="token punctuation">.</span>inited<span class="token punctuation">:</span>
+            <span class="token keyword">return</span>
+
+        <span class="token comment"># 计算快速均线</span>
+        fast_ma <span class="token operator">=</span> am<span class="token punctuation">.</span>sma<span class="token punctuation">(</span>self<span class="token punctuation">.</span>fast_window<span class="token punctuation">,</span> array<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>fast_ma0 <span class="token operator">=</span> fast_ma<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>     <span class="token comment"># T时刻数值</span>
+        self<span class="token punctuation">.</span>fast_ma1 <span class="token operator">=</span> fast_ma<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">]</span>     <span class="token comment"># T-1时刻数值</span>
+
+        <span class="token comment"># 计算慢速均线</span>
+        slow_ma <span class="token operator">=</span> am<span class="token punctuation">.</span>sma<span class="token punctuation">(</span>self<span class="token punctuation">.</span>slow_window<span class="token punctuation">,</span> array<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>slow_ma0 <span class="token operator">=</span> slow_ma<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>slow_ma1 <span class="token operator">=</span> slow_ma<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">]</span>
+
+        <span class="token comment"># 判断是否金叉</span>
+        cross_over <span class="token operator">=</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>fast_ma0 <span class="token operator">></span> self<span class="token punctuation">.</span>slow_ma0 <span class="token keyword">and</span>
+                      self<span class="token punctuation">.</span>fast_ma1 <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>slow_ma1<span class="token punctuation">)</span>
+
+        <span class="token comment"># 判断是否死叉</span>
+        cross_below <span class="token operator">=</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>fast_ma0 <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>slow_ma0 <span class="token keyword">and</span>
+                       self<span class="token punctuation">.</span>fast_ma1 <span class="token operator">></span> self<span class="token punctuation">.</span>slow_ma1<span class="token punctuation">)</span>
+
+        <span class="token comment"># 如果发生了金叉</span>
+        <span class="token keyword">if</span> cross_over<span class="token punctuation">:</span>
+            price <span class="token operator">=</span> bar<span class="token punctuation">.</span>close_price <span class="token operator">+</span> <span class="token number">5</span>
+
+            <span class="token keyword">if</span> self<span class="token punctuation">.</span>pos <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>  <span class="token comment"># 当前无仓位，则直接开多</span>
+                self<span class="token punctuation">.</span>buy<span class="token punctuation">(</span>price<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+            <span class="token keyword">elif</span> self<span class="token punctuation">.</span>pos <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">:</span>  <span class="token comment"># 当前持有空头仓位，则先平空，再开多</span>
+                self<span class="token punctuation">.</span>cover<span class="token punctuation">(</span>price<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+                self<span class="token punctuation">.</span>buy<span class="token punctuation">(</span>price<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+
+        <span class="token comment"># 如果发生了死叉</span>
+        <span class="token keyword">elif</span> cross_below<span class="token punctuation">:</span>
+            price <span class="token operator">=</span> bar<span class="token punctuation">.</span>close_price <span class="token operator">-</span> <span class="token number">5</span>
+
+            <span class="token keyword">if</span> self<span class="token punctuation">.</span>pos <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>  <span class="token comment"># 当前无仓位，则直接开空</span>
+                self<span class="token punctuation">.</span>short<span class="token punctuation">(</span>price<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+            <span class="token keyword">elif</span> self<span class="token punctuation">.</span>pos <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>  <span class="token comment"># 当前持有多头仓位，则先平多，再开空</span>
+                self<span class="token punctuation">.</span>sell<span class="token punctuation">(</span>price<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+                self<span class="token punctuation">.</span>short<span class="token punctuation">(</span>price<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>put_event<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">on_order</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> order<span class="token punctuation">:</span> OrderData<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        通过该函数收到委托状态更新推送。
+        """</span>
+        <span class="token keyword">pass</span>
+
+    <span class="token keyword">def</span> <span class="token function">on_trade</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> trade<span class="token punctuation">:</span> TradeData<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        通过该函数收到成交推送。
+        """</span>
+        self<span class="token punctuation">.</span>put_event<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">on_stop_order</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> stop_order<span class="token punctuation">:</span> StopOrder<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        通过该函数收到本地停止单推送。
+        """</span>
+        <span class="token keyword">pass</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>保存后，再次启动程序回测时就能看到了。</p>
+<p><img src="/../images/16/9_strategy.png"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇文章简单讲了一下VNPY这个开源量化平台的基本使用，下一篇应该讲讲如何对接IB盈透证券使用吧，主要讲讲如何先使用延迟数据测试，毕竟哪有那么对富人呢，对吧，都是臭打工的。</p>
+]]></content>
+      <categories>
+        <category>量化交易</category>
+      </categories>
+      <tags>
+        <tag>量化交易</tag>
+        <tag>程序化交易</tag>
+        <tag>盈透证券</tag>
+        <tag>TWS API</tag>
+        <tag>回测</tag>
+        <tag>股票</tag>
+        <tag>期货</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VNPY平台对接IB盈透证券</title>
     <url>/2025/01/13/17_2025-01-13-VNPY%E4%B8%8EIB/</url>
     <content><![CDATA[<p>上篇讲了一下VNPY这个开源平台的基本使用，这篇讲讲怎么用VNPY对接IB以及一些遇到的问题。</p>
@@ -810,7 +810,7 @@ git config --global user.email &quot;Github邮箱&quot;<span aria-hidden="true" 
 
 <pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">ssh-keygen -t rsa -C &quot;Github邮箱&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>例如，我的github用户名是 <strong>zcpisme</strong>, 用 <strong><a href="mailto:&#122;&#x63;&#x70;&#x69;&#x73;&#109;&#x65;&#64;&#117;&#99;&#x68;&#x69;&#99;&#97;&#103;&#x6f;&#46;&#101;&#x64;&#x75;">&#122;&#x63;&#x70;&#x69;&#x73;&#109;&#x65;&#64;&#117;&#99;&#x68;&#x69;&#99;&#97;&#103;&#x6f;&#46;&#101;&#x64;&#x75;</a></strong>（我编的一个邮箱），则在CMD输入</p>
+<p>例如，我的github用户名是 <strong>zcpisme</strong>, 用 <strong><a href="mailto:&#122;&#x63;&#112;&#105;&#115;&#109;&#x65;&#64;&#x75;&#99;&#104;&#105;&#x63;&#x61;&#x67;&#x6f;&#x2e;&#101;&#x64;&#x75;">&#122;&#x63;&#112;&#105;&#115;&#109;&#x65;&#64;&#x75;&#99;&#104;&#105;&#x63;&#x61;&#x67;&#x6f;&#x2e;&#101;&#x64;&#x75;</a></strong>（我编的一个邮箱），则在CMD输入</p>
 <pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">git config --global user.name &quot;zcpisme&quot;
 git config --global user.email &quot;zcpisme@uchicago.edu&quot;
 ssh-keygen -t rsa -C &quot; zcpisme@uchicago.edu&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
