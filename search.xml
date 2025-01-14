@@ -764,40 +764,6 @@ dpkg <span class="token parameter variable">-i</span> package.deb       <span cl
       </tags>
   </entry>
   <entry>
-    <title>VNPY平台对接IB盈透证券</title>
-    <url>/2025/01/13/17_2025-01-13-VNPY%E4%B8%8EIB/</url>
-    <content><![CDATA[<p>上篇讲了一下VNPY这个开源平台的基本使用，这篇讲讲怎么用VNPY对接IB以及一些遇到的问题。</p>
-<h1 id="VNPY平台对接IB盈透证券"><a href="#VNPY平台对接IB盈透证券" class="headerlink" title="VNPY平台对接IB盈透证券"></a>VNPY平台对接IB盈透证券</h1><p>参考<a href="https://zhuanlan.zhihu.com/p/75787960">官方教程</a>。</p>
-<h2 id="安装必要插件"><a href="#安装必要插件" class="headerlink" title="安装必要插件"></a>安装必要插件</h2><h3 id="IB-Trader-Workstation"><a href="#IB-Trader-Workstation" class="headerlink" title="IB Trader Workstation"></a>IB Trader Workstation</h3><p>因为要开启API功能，所以要先下载盈透证券的<a href="https://www.interactivebrokers.com/en/trading/tws.php">Trader Workstation</a>，安装，网上教程很多，查一查打开api功能即可。</p>
-<p>这里简单说一下，<strong>只有PRO账户能开启API。</strong></p>
-<p>打开station后，看到<strong>右上角齿轮</strong>，<strong>看到</strong>，勾选<strong>Enable ActiveX and Socket Clients</strong>，如图：</p>
-<p><img src="/../images/17/1_api.png" alt="端口号是7497"></p>
-<h3 id="ibapi"><a href="#ibapi" class="headerlink" title="ibapi"></a>ibapi</h3><p>在python里，不是简单的pip install ibapi就行了，仔细阅读并参考vnpy<a href="https://github.com/vnpy/vnpy_ib">提供的文档</a>。</p>
-<h2 id="连接VNPY"><a href="#连接VNPY" class="headerlink" title="连接VNPY"></a>连接VNPY</h2><p>在VNPY启动界面，在<strong>交易接口</strong>处勾选<strong>盈透证券</strong>，启动。看到弹出界面工具栏的连接里，选择连接IB。填入之前的端口即可，其他不变，点击链接。</p>
-<p><img src="/../images/17/2_connectIB.png"></p>
-<p>连接过后就成功通过API连接到刚才登陆在trader workstation的账户了。如果付费订阅了市场，就可以直接开始使用了，但是没有订阅，使用的是延迟数据，就还需要做些改动。</p>
-<h2 id="使用延迟数据"><a href="#使用延迟数据" class="headerlink" title="使用延迟数据"></a>使用延迟数据</h2><p>参考<a href="https://www.vnpy.com/forum/topic/1533-vnpylian-jie-ibjie-kou-jiao-yi-de-yi-xie-keng-huan-you-ru-he-ding-yue-yan-chi-xing-qing">这篇帖子</a>。</p>
-<p>正如这篇帖子所说，如果直接查询Alibaba的CONID，VNPY显示一片空白，日志显示Requested market data is not subscribed等信息。这里就需要在后台开启延迟数据订阅。</p>
-<p>大部分这篇教程都提到了，但可能因为项目更新，ib_gateway.py文件位置移到了VNPY安装目录下veighna_studio\Lib\site-packages\vnpy_ib文件夹，然后再根据教程更改即可。</p>
-<p>这里直接给出改好的代码，可以直接下载替换，建议先对原文件备份。点击下载<a href="https://github.com/zcpisme/blogdownloadfile/blob/main/ib_gateway.py">ib_gateway.py</a>。</p>
-<p>配置好后启动VNPY，连接IB，假设查询Alibaba股票，显示如下。</p>
-<p><img src="/../images/17/3_delaydata.png" alt="成了"></p>
-<p>注意这只是延迟数据，实时的还是需要订阅，并把ib_gateway.py文件改回去！</p>
-]]></content>
-      <categories>
-        <category>量化交易</category>
-      </categories>
-      <tags>
-        <tag>量化交易</tag>
-        <tag>程序化交易</tag>
-        <tag>盈透证券</tag>
-        <tag>TWS API</tag>
-        <tag>回测</tag>
-        <tag>股票</tag>
-        <tag>期货</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo + Github个人网页制作</title>
     <url>/2024/03/04/1_2024-03-03-Hexo-+-Github%E4%B8%AA%E4%BA%BA%E7%BD%91%E9%A1%B5%E5%88%B6%E4%BD%9C/</url>
     <content><![CDATA[<p> 作为第一篇文章，就讲讲这个网站是怎么做的吧。 很早就有想做一个个人网站了，但是无奈不会的太多也就打消了这个念头。不然还得从头学一些奇奇怪怪的JavaScript和CSS相关的东西，这对我来说可就太折磨了。但是，昨天聊天时朋友提了一嘴：“你们没有个人作品集之类的东西吗？”， 我说还真没有，但是又突然想到了个人网站这种东西。想起本科时那些教授都有自己的网站，我就又去搜索了一下类似于“个人网站制作”的内容。 没想到居然有现成的库可以直接用，那就是Hexo了，甚至还配有各种主题（theme）。时过境迁，现在一切都变得那么容易，都可以一键生成。</p>
@@ -810,7 +776,7 @@ git config --global user.email &quot;Github邮箱&quot;<span aria-hidden="true" 
 
 <pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">ssh-keygen -t rsa -C &quot;Github邮箱&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>例如，我的github用户名是 <strong>zcpisme</strong>, 用 <strong><a href="mailto:&#122;&#x63;&#112;&#105;&#115;&#109;&#x65;&#64;&#x75;&#99;&#104;&#105;&#x63;&#x61;&#x67;&#x6f;&#x2e;&#101;&#x64;&#x75;">&#122;&#x63;&#112;&#105;&#115;&#109;&#x65;&#64;&#x75;&#99;&#104;&#105;&#x63;&#x61;&#x67;&#x6f;&#x2e;&#101;&#x64;&#x75;</a></strong>（我编的一个邮箱），则在CMD输入</p>
+<p>例如，我的github用户名是 <strong>zcpisme</strong>, 用 <strong><a href="mailto:&#x7a;&#x63;&#112;&#105;&#x73;&#109;&#101;&#64;&#x75;&#99;&#104;&#105;&#x63;&#x61;&#103;&#x6f;&#46;&#101;&#100;&#117;">&#x7a;&#x63;&#112;&#105;&#x73;&#109;&#101;&#64;&#x75;&#99;&#104;&#105;&#x63;&#x61;&#103;&#x6f;&#46;&#101;&#100;&#117;</a></strong>（我编的一个邮箱），则在CMD输入</p>
 <pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">git config --global user.name &quot;zcpisme&quot;
 git config --global user.email &quot;zcpisme@uchicago.edu&quot;
 ssh-keygen -t rsa -C &quot; zcpisme@uchicago.edu&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
@@ -939,6 +905,40 @@ theme: hexo-theme-matery<span aria-hidden="true" class="line-numbers-rows"><span
       <tags>
         <tag>Hexo</tag>
         <tag>Github</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VNPY平台对接IB盈透证券</title>
+    <url>/2025/01/13/17_2025-01-13-VNPY%E4%B8%8EIB/</url>
+    <content><![CDATA[<p>上篇讲了一下VNPY这个开源平台的基本使用，这篇讲讲怎么用VNPY对接IB以及一些遇到的问题。</p>
+<h1 id="VNPY平台对接IB盈透证券"><a href="#VNPY平台对接IB盈透证券" class="headerlink" title="VNPY平台对接IB盈透证券"></a>VNPY平台对接IB盈透证券</h1><p>参考<a href="https://zhuanlan.zhihu.com/p/75787960">官方教程</a>。</p>
+<h2 id="安装必要插件"><a href="#安装必要插件" class="headerlink" title="安装必要插件"></a>安装必要插件</h2><h3 id="IB-Trader-Workstation"><a href="#IB-Trader-Workstation" class="headerlink" title="IB Trader Workstation"></a>IB Trader Workstation</h3><p>因为要开启API功能，所以要先下载盈透证券的<a href="https://www.interactivebrokers.com/en/trading/tws.php">Trader Workstation</a>，安装，网上教程很多，查一查打开api功能即可。</p>
+<p>这里简单说一下，<strong>只有PRO账户能开启API。</strong></p>
+<p>打开station后，看到<strong>右上角齿轮</strong>，<strong>看到</strong>，勾选<strong>Enable ActiveX and Socket Clients</strong>，如图：</p>
+<p><img src="/../images/17/1_api.png" alt="端口号是7497"></p>
+<h3 id="ibapi"><a href="#ibapi" class="headerlink" title="ibapi"></a>ibapi</h3><p>在python里，不是简单的pip install ibapi就行了，仔细阅读并参考vnpy<a href="https://github.com/vnpy/vnpy_ib">提供的文档</a>。</p>
+<h2 id="连接VNPY"><a href="#连接VNPY" class="headerlink" title="连接VNPY"></a>连接VNPY</h2><p>在VNPY启动界面，在<strong>交易接口</strong>处勾选<strong>盈透证券</strong>，启动。看到弹出界面工具栏的连接里，选择连接IB。填入之前的端口即可，其他不变，点击链接。</p>
+<p><img src="/../images/17/2_connectIB.png"></p>
+<p>连接过后就成功通过API连接到刚才登陆在trader workstation的账户了。如果付费订阅了市场，就可以直接开始使用了，但是没有订阅，使用的是延迟数据，就还需要做些改动。</p>
+<h2 id="使用延迟数据"><a href="#使用延迟数据" class="headerlink" title="使用延迟数据"></a>使用延迟数据</h2><p>参考<a href="https://www.vnpy.com/forum/topic/1533-vnpylian-jie-ibjie-kou-jiao-yi-de-yi-xie-keng-huan-you-ru-he-ding-yue-yan-chi-xing-qing">这篇帖子</a>。</p>
+<p>正如这篇帖子所说，如果直接查询Alibaba的CONID，VNPY显示一片空白，日志显示Requested market data is not subscribed等信息。这里就需要在后台开启延迟数据订阅。</p>
+<p>大部分这篇教程都提到了，但可能因为项目更新，ib_gateway.py文件位置移到了VNPY安装目录下veighna_studio\Lib\site-packages\vnpy_ib文件夹，然后再根据教程更改即可。</p>
+<p>这里直接给出改好的代码，可以直接下载替换，建议先对原文件备份。点击下载<a href="https://github.com/zcpisme/blogdownloadfile/blob/main/ib_gateway.py">ib_gateway.py</a>。</p>
+<p>配置好后启动VNPY，连接IB，假设查询Alibaba股票，显示如下。</p>
+<p><img src="/../images/17/3_delaydata.png" alt="成了"></p>
+<p>注意这只是延迟数据，实时的还是需要订阅，并把ib_gateway.py文件改回去！</p>
+]]></content>
+      <categories>
+        <category>量化交易</category>
+      </categories>
+      <tags>
+        <tag>量化交易</tag>
+        <tag>程序化交易</tag>
+        <tag>盈透证券</tag>
+        <tag>TWS API</tag>
+        <tag>回测</tag>
+        <tag>股票</tag>
+        <tag>期货</tag>
       </tags>
   </entry>
   <entry>
@@ -1249,6 +1249,196 @@ pipe<span class="token punctuation">(</span><span class="token string">'今天�
       <tags>
         <tag>自然语言处理</tag>
         <tag>调包侠</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>超参数优化</title>
+    <url>/2024/03/19/7_2024-03-19-%E8%B6%85%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h2 id="调参"><a href="#调参" class="headerlink" title="调参"></a>调参</h2><p>在训练模型的过程中，为了达到更好的结果，免不了要优化超参数，又称调参。虽然感觉提升并不显著，但提高一点算一点嘛。</p>
+<p>在<a href="https://aws.amazon.com/what-is/hyperparameter-tuning/?nc1=h_ls">Amazon介绍的超参数调优</a>的介绍中，在传统的机器学习中一般有三种调优方式（其实就两种，网格搜索和随机搜索没什么区别）：</p>
+<ol>
+<li>网格搜索(Grid search)</li>
+<li>随机搜索(Random search)</li>
+<li>贝叶斯优化(Bayesian optimization):</li>
+</ol>
+<p>为了演示，这里使用Random Forest Classifier。</p>
+<h3 id="0-数据"><a href="#0-数据" class="headerlink" title="0. 数据"></a>0. 数据</h3><p>随机在kaggle上找了个<a href="https://www.kaggle.com/datasets/muratkokludataset/dry-bean-dataset/code">Dry Bean</a>数据集， 我也没仔细看具体是什么，大概就是不同豆子的种类吧，应该和iris差不多。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>metrics <span class="token keyword">import</span> confusion_matrix<span class="token punctuation">,</span> classification_report<span class="token punctuation">,</span> accuracy_score
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>model_selection <span class="token keyword">import</span> train_test_split
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>ensemble <span class="token keyword">import</span> RandomForestClassifier
+
+
+X <span class="token operator">=</span> df<span class="token punctuation">.</span>drop<span class="token punctuation">(</span><span class="token string">'Class'</span><span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+y <span class="token operator">=</span> df<span class="token punctuation">[</span><span class="token string">'Class'</span><span class="token punctuation">]</span>
+X_train<span class="token punctuation">,</span> X_test<span class="token punctuation">,</span> y_train<span class="token punctuation">,</span> y_test <span class="token operator">=</span> train_test_split<span class="token punctuation">(</span>X<span class="token punctuation">,</span> y<span class="token punctuation">,</span> test_size<span class="token operator">=</span><span class="token number">0.2</span><span class="token punctuation">,</span> random_state<span class="token operator">=</span><span class="token number">42</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>用默认参数跑一遍</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">rfm_default <span class="token operator">=</span> RandomForestClassifier<span class="token punctuation">(</span><span class="token punctuation">)</span>
+rfm_default<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>X_train <span class="token punctuation">,</span> y_train<span class="token punctuation">)</span>
+
+rfm_default_pred <span class="token operator">=</span> rfm_default<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>X_test<span class="token punctuation">)</span>
+
+<span class="token comment"># print(classification_report(y_test , rfm_default_pred))</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Accuracy: "</span><span class="token punctuation">,</span> accuracy_score<span class="token punctuation">(</span>y_test<span class="token punctuation">,</span> rfm_default_pred<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment"># Accuracy:  0.9217774513404333</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="1-网格搜索"><a href="#1-网格搜索" class="headerlink" title="1. 网格搜索"></a>1. 网格搜索</h3><p>这种方法简单来说就是把所有的超参数组合试一遍，和一拍脑袋手动试并无二致，不过网格搜索在给定范围内自动运行，不用手动一个一个试。</p>
+<p>为了演示方便，只调 n_estimators 和 min_samples_leaf，并只给两个取值。事实上可以无限多个。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>model_selection <span class="token keyword">import</span> GridSearchCV
+
+param_grid <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">'n_estimators'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+    <span class="token comment"># 'max_depth': [None, 10, 20], </span>
+    <span class="token comment"># 'min_samples_split': [5, 10],  </span>
+    <span class="token string">'min_samples_leaf'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token comment"># 'bootstrap': [True, False]</span>
+<span class="token punctuation">&#125;</span>
+
+rfm_grid <span class="token operator">=</span> RandomForestClassifier<span class="token punctuation">(</span>random_state<span class="token operator">=</span><span class="token number">42</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 开始调参</span>
+grid_search <span class="token operator">=</span> GridSearchCV<span class="token punctuation">(</span>estimator<span class="token operator">=</span>rfm_grid<span class="token punctuation">,</span> param_grid<span class="token operator">=</span>param_grid<span class="token punctuation">,</span> cv<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">,</span> verbose<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+grid_search<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>X_train<span class="token punctuation">,</span> y_train<span class="token punctuation">)</span>
+
+<span class="token comment"># 打印最好参数和结果</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Best parameters found: "</span><span class="token punctuation">,</span> grid_search<span class="token punctuation">.</span>best_params_<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Best score: "</span><span class="token punctuation">,</span> grid_search<span class="token punctuation">.</span>best_score_<span class="token punctuation">)</span>
+<span class="token comment">#Best parameters found:  &#123;'min_samples_leaf': 2, 'n_estimators': 100&#125;</span>
+<span class="token comment">#Best score:  0.9231263776634827</span>
+
+<span class="token comment"># 在测试集上测试</span>
+predictions <span class="token operator">=</span> grid_search<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>X_test<span class="token punctuation">)</span>
+<span class="token comment">#print("Classification report:\n", classification_report(y_test, predictions))</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Accuracy: "</span><span class="token punctuation">,</span> accuracy_score<span class="token punctuation">(</span>y_test<span class="token punctuation">,</span> predictions<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">#Accuracy:  0.9232464193903782</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到，调参过后准确率略有提升（0.92178 –&gt; 0.92325）。这种方法理论上可以找到最好的超参数组合，但是<strong>太慢了</strong>！因为每一个组合都要拟合测试一遍。</p>
+<h3 id="2-随机搜索"><a href="#2-随机搜索" class="headerlink" title="2. 随机搜索"></a>2. 随机搜索</h3><p>顾名思义，就是在超参数组合中随机取点拟合模型，保留在有限次循环 (n_iter) 中最好结果。</p>
+<p>牺牲一点准确度，但是解决了网格搜索过慢的痛点。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>model_selection <span class="token keyword">import</span> RandomizedSearchCV
+<span class="token comment"># 速度较快，我们可以加大超参数取值范围，但为了演示依旧只调n_estimators 和 min_samples_leaf</span>
+param_dist <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">'n_estimators'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token keyword">for</span> x <span class="token keyword">in</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span>start<span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">,</span> stop<span class="token operator">=</span><span class="token number">300</span><span class="token punctuation">,</span> num<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+    <span class="token comment"># 'max_depth': [int(x) for x in np.linspace(10, 110, num=11)] + [None],</span>
+    <span class="token comment"># 'min_samples_split': [2, 5, 10], </span>
+    <span class="token string">'min_samples_leaf'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+    <span class="token comment"># 'bootstrap': [True, False] </span>
+<span class="token punctuation">&#125;</span>
+
+
+rfm_random <span class="token operator">=</span> RandomForestClassifier<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 开始调参，注意 n_iter 为循环次数</span>
+random_search <span class="token operator">=</span> RandomizedSearchCV<span class="token punctuation">(</span>estimator<span class="token operator">=</span>rfm_random<span class="token punctuation">,</span> param_distributions<span class="token operator">=</span>param_dist<span class="token punctuation">,</span> n_iter<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span> cv<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span> verbose<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> random_state<span class="token operator">=</span><span class="token number">42</span><span class="token punctuation">)</span>
+
+random_search<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>X_train <span class="token punctuation">,</span> y_train<span class="token punctuation">)</span>
+
+<span class="token comment"># 打印最好参数和结果</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Best parameters found: "</span><span class="token punctuation">,</span> random_search<span class="token punctuation">.</span>best_params_<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Best score: "</span><span class="token punctuation">,</span> random_search<span class="token punctuation">.</span>best_score_<span class="token punctuation">)</span>
+
+<span class="token comment"># 在测试集上测试</span>
+predictions <span class="token operator">=</span> random_search<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>X_test<span class="token punctuation">)</span>
+<span class="token comment"># print("Classification report:\n", classification_report(y_test, predictions))</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Accuracy: "</span><span class="token punctuation">,</span> accuracy_score<span class="token punctuation">(</span>y_test<span class="token punctuation">,</span> predictions<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment"># Accuracy:  0.9243481454278369</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里准确率依旧有提升，仅仅是因为范围比较大。</p>
+<h3 id="3-贝叶斯优化-⭐️⭐️⭐️"><a href="#3-贝叶斯优化-⭐️⭐️⭐️" class="headerlink" title="3. 贝叶斯优化 ⭐️⭐️⭐️"></a>3. 贝叶斯优化 ⭐️⭐️⭐️</h3><p>贝叶斯优化假设超参数和损失函数有某种关系，但是由于函数未知等原因，无法使用凸优化的方法。取而代之，用数值分析的方法找到最优解。简单来说，在每一次选取新的超参数组合时，记录了前几次的信息，所以效果理论上会比随机搜索好。</p>
+<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">pip install scikit-optimize<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> skopt <span class="token keyword">import</span> BayesSearchCV
+
+<span class="token comment"># 开始调参</span>
+opt <span class="token operator">=</span> BayesSearchCV<span class="token punctuation">(</span>
+    estimator<span class="token operator">=</span>RandomForestClassifier<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    search_spaces<span class="token operator">=</span>param_dist<span class="token punctuation">,</span> <span class="token comment">#和前面范围一致</span>
+    n_iter<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span>  <span class="token comment"># 循环次数</span>
+    cv<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span>       <span class="token comment"># 3折交叉验证</span>
+    scoring<span class="token operator">=</span><span class="token string">'accuracy'</span><span class="token punctuation">,</span>
+    verbose <span class="token operator">=</span> <span class="token number">2</span>
+<span class="token punctuation">)</span>
+opt<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>X_train <span class="token punctuation">,</span> y_train<span class="token punctuation">)</span>
+
+<span class="token comment"># 打印最好参数和结果</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Best parameters found: "</span><span class="token punctuation">,</span> opt<span class="token punctuation">.</span>best_params_<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Best score: "</span><span class="token punctuation">,</span> opt<span class="token punctuation">.</span>best_score_<span class="token punctuation">)</span>
+
+<span class="token comment"># 在测试集上测试</span>
+predictions <span class="token operator">=</span> opt<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>X_test<span class="token punctuation">)</span>
+<span class="token comment"># print("Classification report:\n", classification_report(y_test, predictions))</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Accuracy: "</span><span class="token punctuation">,</span> accuracy_score<span class="token punctuation">(</span>y_test<span class="token punctuation">,</span> predictions<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment"># Accuracy:  0.9254498714652957</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到，贝叶斯优化由于是有规律的选取超参数，表现较好，并且耗时较短。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>调参在一定程度上可以提升正确率。根据实际情况，每个模型需要调的超参数不同。现如今，我们也可以使用一些自动调参的包，类似于<a href="https://docs.h2o.ai/h2o/latest-stable/h2o-docs/automl.html">H2O AutoML</a>， 这个甚至可以从几个基础模型中选择最好的。</p>
+<p>调参的过程需要时间和耐心（和玄学），最离谱的是调random seed的都有。在<a href="https://arxiv.org/abs/2109.08203">Torch.manual_seed(3407) is all you need</a>这篇文章中，作者居然说3407这个种子在主流预训练的计算机视觉模型中表现最好，娘希匹，这都能水文章。太变态了。</p>
+<p>总之，学再多的模型，也逃不了调参的命运，真是不幸。</p>
+<h3 id="附录：基础模型的常见超参数"><a href="#附录：基础模型的常见超参数" class="headerlink" title="附录：基础模型的常见超参数"></a>附录：基础模型的常见超参数</h3><table>
+<thead>
+<tr>
+<th>Random Forest</th>
+<th>Gradient Boosting</th>
+<th>SVM</th>
+<th>Logistic Regression</th>
+<th>KNN</th>
+<th>Decision Trees</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>n_estimators: 树的数量</td>
+<td>n_estimators:  迭代次数，即要构建的树的数量</td>
+<td>C: 正则化参数，控制误差项的惩罚强度</td>
+<td>C: 正则化参数，控制误差项的惩罚强度</td>
+<td>n_neighbors:  邻居的数量</td>
+<td>max_depth: 树的最大深度</td>
+</tr>
+<tr>
+<td>max_depth: 树的最大深度</td>
+<td>learning_rate: 学习率，用以控制每棵树对最终结果的贡献</td>
+<td>kernel:  核函数类型，用于转换输入数据空间</td>
+<td>penalty: 用于指定惩罚中使用的标准（如L1或L2正则化）</td>
+<td>weights:  预测中使用的权重函数</td>
+<td>min_samples_split: 分割内部节点所需的最小样本数</td>
+</tr>
+<tr>
+<td>min_samples_split:  分割内部节点所需的最小样本数</td>
+<td>max_depth: 树的最大深度</td>
+<td>gamma: 核函数的系数（对于‘rbf’，‘poly’和‘sigmoid’）</td>
+<td>solver: 用于优化问题的算法</td>
+<td>algorithm: 用于计算最近邻居的算法</td>
+<td>min_samples_leaf: 叶节点所需的最小样本数</td>
+</tr>
+<tr>
+<td>min_samples_leaf: 叶节点所需的最小样本数</td>
+<td>min_samples_split: 分割内部节点所需的最小样本数</td>
+<td></td>
+<td></td>
+<td></td>
+<td>criterion: 用于测量分割质量的函数</td>
+</tr>
+<tr>
+<td>bootstrap: 是否在构建树时使用bootstrap样本（即重抽样）</td>
+<td>min_samples_leaf: 叶节点所需的最小样本数</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>调参</tag>
+        <tag>机器学习</tag>
+        <tag>炼丹</tag>
+        <tag>玄学</tag>
       </tags>
   </entry>
   <entry>
@@ -1641,196 +1831,6 @@ pipe<span class="token punctuation">(</span><span class="token string">'今天�
       <tags>
         <tag>八股文</tag>
         <tag>面经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>超参数优化</title>
-    <url>/2024/03/19/7_2024-03-19-%E8%B6%85%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<h2 id="调参"><a href="#调参" class="headerlink" title="调参"></a>调参</h2><p>在训练模型的过程中，为了达到更好的结果，免不了要优化超参数，又称调参。虽然感觉提升并不显著，但提高一点算一点嘛。</p>
-<p>在<a href="https://aws.amazon.com/what-is/hyperparameter-tuning/?nc1=h_ls">Amazon介绍的超参数调优</a>的介绍中，在传统的机器学习中一般有三种调优方式（其实就两种，网格搜索和随机搜索没什么区别）：</p>
-<ol>
-<li>网格搜索(Grid search)</li>
-<li>随机搜索(Random search)</li>
-<li>贝叶斯优化(Bayesian optimization):</li>
-</ol>
-<p>为了演示，这里使用Random Forest Classifier。</p>
-<h3 id="0-数据"><a href="#0-数据" class="headerlink" title="0. 数据"></a>0. 数据</h3><p>随机在kaggle上找了个<a href="https://www.kaggle.com/datasets/muratkokludataset/dry-bean-dataset/code">Dry Bean</a>数据集， 我也没仔细看具体是什么，大概就是不同豆子的种类吧，应该和iris差不多。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
-<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
-<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>metrics <span class="token keyword">import</span> confusion_matrix<span class="token punctuation">,</span> classification_report<span class="token punctuation">,</span> accuracy_score
-<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>model_selection <span class="token keyword">import</span> train_test_split
-<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>ensemble <span class="token keyword">import</span> RandomForestClassifier
-
-
-X <span class="token operator">=</span> df<span class="token punctuation">.</span>drop<span class="token punctuation">(</span><span class="token string">'Class'</span><span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
-y <span class="token operator">=</span> df<span class="token punctuation">[</span><span class="token string">'Class'</span><span class="token punctuation">]</span>
-X_train<span class="token punctuation">,</span> X_test<span class="token punctuation">,</span> y_train<span class="token punctuation">,</span> y_test <span class="token operator">=</span> train_test_split<span class="token punctuation">(</span>X<span class="token punctuation">,</span> y<span class="token punctuation">,</span> test_size<span class="token operator">=</span><span class="token number">0.2</span><span class="token punctuation">,</span> random_state<span class="token operator">=</span><span class="token number">42</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>用默认参数跑一遍</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">rfm_default <span class="token operator">=</span> RandomForestClassifier<span class="token punctuation">(</span><span class="token punctuation">)</span>
-rfm_default<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>X_train <span class="token punctuation">,</span> y_train<span class="token punctuation">)</span>
-
-rfm_default_pred <span class="token operator">=</span> rfm_default<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>X_test<span class="token punctuation">)</span>
-
-<span class="token comment"># print(classification_report(y_test , rfm_default_pred))</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Accuracy: "</span><span class="token punctuation">,</span> accuracy_score<span class="token punctuation">(</span>y_test<span class="token punctuation">,</span> rfm_default_pred<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment"># Accuracy:  0.9217774513404333</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h3 id="1-网格搜索"><a href="#1-网格搜索" class="headerlink" title="1. 网格搜索"></a>1. 网格搜索</h3><p>这种方法简单来说就是把所有的超参数组合试一遍，和一拍脑袋手动试并无二致，不过网格搜索在给定范围内自动运行，不用手动一个一个试。</p>
-<p>为了演示方便，只调 n_estimators 和 min_samples_leaf，并只给两个取值。事实上可以无限多个。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>model_selection <span class="token keyword">import</span> GridSearchCV
-
-param_grid <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    <span class="token string">'n_estimators'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
-    <span class="token comment"># 'max_depth': [None, 10, 20], </span>
-    <span class="token comment"># 'min_samples_split': [5, 10],  </span>
-    <span class="token string">'min_samples_leaf'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token comment"># 'bootstrap': [True, False]</span>
-<span class="token punctuation">&#125;</span>
-
-rfm_grid <span class="token operator">=</span> RandomForestClassifier<span class="token punctuation">(</span>random_state<span class="token operator">=</span><span class="token number">42</span><span class="token punctuation">)</span>
-
-<span class="token comment"># 开始调参</span>
-grid_search <span class="token operator">=</span> GridSearchCV<span class="token punctuation">(</span>estimator<span class="token operator">=</span>rfm_grid<span class="token punctuation">,</span> param_grid<span class="token operator">=</span>param_grid<span class="token punctuation">,</span> cv<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">,</span> verbose<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
-grid_search<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>X_train<span class="token punctuation">,</span> y_train<span class="token punctuation">)</span>
-
-<span class="token comment"># 打印最好参数和结果</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Best parameters found: "</span><span class="token punctuation">,</span> grid_search<span class="token punctuation">.</span>best_params_<span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Best score: "</span><span class="token punctuation">,</span> grid_search<span class="token punctuation">.</span>best_score_<span class="token punctuation">)</span>
-<span class="token comment">#Best parameters found:  &#123;'min_samples_leaf': 2, 'n_estimators': 100&#125;</span>
-<span class="token comment">#Best score:  0.9231263776634827</span>
-
-<span class="token comment"># 在测试集上测试</span>
-predictions <span class="token operator">=</span> grid_search<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>X_test<span class="token punctuation">)</span>
-<span class="token comment">#print("Classification report:\n", classification_report(y_test, predictions))</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Accuracy: "</span><span class="token punctuation">,</span> accuracy_score<span class="token punctuation">(</span>y_test<span class="token punctuation">,</span> predictions<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment">#Accuracy:  0.9232464193903782</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>可以看到，调参过后准确率略有提升（0.92178 –&gt; 0.92325）。这种方法理论上可以找到最好的超参数组合，但是<strong>太慢了</strong>！因为每一个组合都要拟合测试一遍。</p>
-<h3 id="2-随机搜索"><a href="#2-随机搜索" class="headerlink" title="2. 随机搜索"></a>2. 随机搜索</h3><p>顾名思义，就是在超参数组合中随机取点拟合模型，保留在有限次循环 (n_iter) 中最好结果。</p>
-<p>牺牲一点准确度，但是解决了网格搜索过慢的痛点。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>model_selection <span class="token keyword">import</span> RandomizedSearchCV
-<span class="token comment"># 速度较快，我们可以加大超参数取值范围，但为了演示依旧只调n_estimators 和 min_samples_leaf</span>
-param_dist <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    <span class="token string">'n_estimators'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token keyword">for</span> x <span class="token keyword">in</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span>start<span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">,</span> stop<span class="token operator">=</span><span class="token number">300</span><span class="token punctuation">,</span> num<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
-    <span class="token comment"># 'max_depth': [int(x) for x in np.linspace(10, 110, num=11)] + [None],</span>
-    <span class="token comment"># 'min_samples_split': [2, 5, 10], </span>
-    <span class="token string">'min_samples_leaf'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
-    <span class="token comment"># 'bootstrap': [True, False] </span>
-<span class="token punctuation">&#125;</span>
-
-
-rfm_random <span class="token operator">=</span> RandomForestClassifier<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-<span class="token comment"># 开始调参，注意 n_iter 为循环次数</span>
-random_search <span class="token operator">=</span> RandomizedSearchCV<span class="token punctuation">(</span>estimator<span class="token operator">=</span>rfm_random<span class="token punctuation">,</span> param_distributions<span class="token operator">=</span>param_dist<span class="token punctuation">,</span> n_iter<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span> cv<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span> verbose<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> random_state<span class="token operator">=</span><span class="token number">42</span><span class="token punctuation">)</span>
-
-random_search<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>X_train <span class="token punctuation">,</span> y_train<span class="token punctuation">)</span>
-
-<span class="token comment"># 打印最好参数和结果</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Best parameters found: "</span><span class="token punctuation">,</span> random_search<span class="token punctuation">.</span>best_params_<span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Best score: "</span><span class="token punctuation">,</span> random_search<span class="token punctuation">.</span>best_score_<span class="token punctuation">)</span>
-
-<span class="token comment"># 在测试集上测试</span>
-predictions <span class="token operator">=</span> random_search<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>X_test<span class="token punctuation">)</span>
-<span class="token comment"># print("Classification report:\n", classification_report(y_test, predictions))</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Accuracy: "</span><span class="token punctuation">,</span> accuracy_score<span class="token punctuation">(</span>y_test<span class="token punctuation">,</span> predictions<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment"># Accuracy:  0.9243481454278369</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>这里准确率依旧有提升，仅仅是因为范围比较大。</p>
-<h3 id="3-贝叶斯优化-⭐️⭐️⭐️"><a href="#3-贝叶斯优化-⭐️⭐️⭐️" class="headerlink" title="3. 贝叶斯优化 ⭐️⭐️⭐️"></a>3. 贝叶斯优化 ⭐️⭐️⭐️</h3><p>贝叶斯优化假设超参数和损失函数有某种关系，但是由于函数未知等原因，无法使用凸优化的方法。取而代之，用数值分析的方法找到最优解。简单来说，在每一次选取新的超参数组合时，记录了前几次的信息，所以效果理论上会比随机搜索好。</p>
-<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">pip install scikit-optimize<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> skopt <span class="token keyword">import</span> BayesSearchCV
-
-<span class="token comment"># 开始调参</span>
-opt <span class="token operator">=</span> BayesSearchCV<span class="token punctuation">(</span>
-    estimator<span class="token operator">=</span>RandomForestClassifier<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    search_spaces<span class="token operator">=</span>param_dist<span class="token punctuation">,</span> <span class="token comment">#和前面范围一致</span>
-    n_iter<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span>  <span class="token comment"># 循环次数</span>
-    cv<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span>       <span class="token comment"># 3折交叉验证</span>
-    scoring<span class="token operator">=</span><span class="token string">'accuracy'</span><span class="token punctuation">,</span>
-    verbose <span class="token operator">=</span> <span class="token number">2</span>
-<span class="token punctuation">)</span>
-opt<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>X_train <span class="token punctuation">,</span> y_train<span class="token punctuation">)</span>
-
-<span class="token comment"># 打印最好参数和结果</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Best parameters found: "</span><span class="token punctuation">,</span> opt<span class="token punctuation">.</span>best_params_<span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Best score: "</span><span class="token punctuation">,</span> opt<span class="token punctuation">.</span>best_score_<span class="token punctuation">)</span>
-
-<span class="token comment"># 在测试集上测试</span>
-predictions <span class="token operator">=</span> opt<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>X_test<span class="token punctuation">)</span>
-<span class="token comment"># print("Classification report:\n", classification_report(y_test, predictions))</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Accuracy: "</span><span class="token punctuation">,</span> accuracy_score<span class="token punctuation">(</span>y_test<span class="token punctuation">,</span> predictions<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment"># Accuracy:  0.9254498714652957</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>可以看到，贝叶斯优化由于是有规律的选取超参数，表现较好，并且耗时较短。</p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>调参在一定程度上可以提升正确率。根据实际情况，每个模型需要调的超参数不同。现如今，我们也可以使用一些自动调参的包，类似于<a href="https://docs.h2o.ai/h2o/latest-stable/h2o-docs/automl.html">H2O AutoML</a>， 这个甚至可以从几个基础模型中选择最好的。</p>
-<p>调参的过程需要时间和耐心（和玄学），最离谱的是调random seed的都有。在<a href="https://arxiv.org/abs/2109.08203">Torch.manual_seed(3407) is all you need</a>这篇文章中，作者居然说3407这个种子在主流预训练的计算机视觉模型中表现最好，娘希匹，这都能水文章。太变态了。</p>
-<p>总之，学再多的模型，也逃不了调参的命运，真是不幸。</p>
-<h3 id="附录：基础模型的常见超参数"><a href="#附录：基础模型的常见超参数" class="headerlink" title="附录：基础模型的常见超参数"></a>附录：基础模型的常见超参数</h3><table>
-<thead>
-<tr>
-<th>Random Forest</th>
-<th>Gradient Boosting</th>
-<th>SVM</th>
-<th>Logistic Regression</th>
-<th>KNN</th>
-<th>Decision Trees</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>n_estimators: 树的数量</td>
-<td>n_estimators:  迭代次数，即要构建的树的数量</td>
-<td>C: 正则化参数，控制误差项的惩罚强度</td>
-<td>C: 正则化参数，控制误差项的惩罚强度</td>
-<td>n_neighbors:  邻居的数量</td>
-<td>max_depth: 树的最大深度</td>
-</tr>
-<tr>
-<td>max_depth: 树的最大深度</td>
-<td>learning_rate: 学习率，用以控制每棵树对最终结果的贡献</td>
-<td>kernel:  核函数类型，用于转换输入数据空间</td>
-<td>penalty: 用于指定惩罚中使用的标准（如L1或L2正则化）</td>
-<td>weights:  预测中使用的权重函数</td>
-<td>min_samples_split: 分割内部节点所需的最小样本数</td>
-</tr>
-<tr>
-<td>min_samples_split:  分割内部节点所需的最小样本数</td>
-<td>max_depth: 树的最大深度</td>
-<td>gamma: 核函数的系数（对于‘rbf’，‘poly’和‘sigmoid’）</td>
-<td>solver: 用于优化问题的算法</td>
-<td>algorithm: 用于计算最近邻居的算法</td>
-<td>min_samples_leaf: 叶节点所需的最小样本数</td>
-</tr>
-<tr>
-<td>min_samples_leaf: 叶节点所需的最小样本数</td>
-<td>min_samples_split: 分割内部节点所需的最小样本数</td>
-<td></td>
-<td></td>
-<td></td>
-<td>criterion: 用于测量分割质量的函数</td>
-</tr>
-<tr>
-<td>bootstrap: 是否在构建树时使用bootstrap样本（即重抽样）</td>
-<td>min_samples_leaf: 叶节点所需的最小样本数</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>调参</tag>
-        <tag>机器学习</tag>
-        <tag>炼丹</tag>
-        <tag>玄学</tag>
       </tags>
   </entry>
   <entry>
