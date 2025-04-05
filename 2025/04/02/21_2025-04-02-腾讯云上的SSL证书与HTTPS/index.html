@@ -1,0 +1,393 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>腾讯云上的SSL证书与HTTPS | ZCP妙妙屋</title><meta name="author" content="Chupeng Zheng"><meta name="copyright" content="Chupeng Zheng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="上一篇文章简单讲了原版的海龟策略思路以及回测结果，这篇文章加上了自己的理解做出改进，就不赘述了。 改进的海龟交易策略经过分析发现，原版的交易策略里，唐奇安通道在空仓时表现极差，所以改用突破布林带上轨时，意味着市场可能正在经历超买，所以开空单，其余保持不变。 # #                     _ooOoo_ #                    o8888888o #">
+<meta property="og:type" content="article">
+<meta property="og:title" content="腾讯云上的SSL证书与HTTPS">
+<meta property="og:url" content="https://zcpisme.github.io/2025/04/02/21_2025-04-02-%E8%85%BE%E8%AE%AF%E4%BA%91%E4%B8%8A%E7%9A%84SSL%E8%AF%81%E4%B9%A6%E4%B8%8EHTTPS/index.html">
+<meta property="og:site_name" content="ZCP妙妙屋">
+<meta property="og:description" content="上一篇文章简单讲了原版的海龟策略思路以及回测结果，这篇文章加上了自己的理解做出改进，就不赘述了。 改进的海龟交易策略经过分析发现，原版的交易策略里，唐奇安通道在空仓时表现极差，所以改用突破布林带上轨时，意味着市场可能正在经历超买，所以开空单，其余保持不变。 # #                     _ooOoo_ #                    o8888888o #">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zcpisme.github.io/images/0cover/19cover.png">
+<meta property="article:published_time" content="2025-04-02T09:36:00.000Z">
+<meta property="article:modified_time" content="2025-04-02T10:44:27.266Z">
+<meta property="article:author" content="Chupeng Zheng">
+<meta property="article:tag" content="HTTPS">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zcpisme.github.io/images/0cover/19cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "腾讯云上的SSL证书与HTTPS",
+  "url": "https://zcpisme.github.io/2025/04/02/21_2025-04-02-%E8%85%BE%E8%AE%AF%E4%BA%91%E4%B8%8A%E7%9A%84SSL%E8%AF%81%E4%B9%A6%E4%B8%8EHTTPS/",
+  "image": "https://zcpisme.github.io/images/0cover/19cover.png",
+  "datePublished": "2025-04-02T09:36:00.000Z",
+  "dateModified": "2025-04-02T10:44:27.266Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chupeng Zheng",
+      "url": "https://zcpisme.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zcpisme.github.io/2025/04/02/21_2025-04-02-%E8%85%BE%E8%AE%AF%E4%BA%91%E4%B8%8A%E7%9A%84SSL%E8%AF%81%E4%B9%A6%E4%B8%8EHTTPS/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-JSY5BEFW3M"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'G-JSY5BEFW3M')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'G-JSY5BEFW3M', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '腾讯云上的SSL证书与HTTPS',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/en/"><i class="fa-fw fas fa-language"></i><span> English</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(../images/0cover/19cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">ZCP妙妙屋</span></a><a class="nav-page-title" href="/"><span class="site-name">腾讯云上的SSL证书与HTTPS</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/en/"><i class="fa-fw fas fa-language"></i><span> English</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">腾讯云上的SSL证书与HTTPS</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-02T09:36:00.000Z" title="发表于 2025-04-02 17:36:00">2025-04-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-02T10:44:27.266Z" title="更新于 2025-04-02 18:44:27">2025-04-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Dify/">Dify</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>上一篇文章简单讲了原版的海龟策略思路以及回测结果，这篇文章加上了自己的理解做出改进，就不赘述了。</p>
+<h2 id="改进的海龟交易策略"><a href="#改进的海龟交易策略" class="headerlink" title="改进的海龟交易策略"></a>改进的海龟交易策略</h2><p>经过分析发现，原版的交易策略里，唐奇安通道在空仓时表现极差，所以改用突破布林带上轨时，意味着市场可能正在经历超买，所以开空单，其余保持不变。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#</span>
+<span class="token comment">#                     _ooOoo_</span>
+<span class="token comment">#                    o8888888o</span>
+<span class="token comment">#                    88" . "88</span>
+<span class="token comment">#                    (| -_- |)</span>
+<span class="token comment">#                     O\ = /O</span>
+<span class="token comment">#                 ____/`---'\____</span>
+<span class="token comment">#               .   ' \\| |// `.</span>
+<span class="token comment">#                / \\||| : |||// \</span>
+<span class="token comment">#              / _||||| -:- |||||- \</span>
+<span class="token comment">#                | | \\\ - /// | |</span>
+<span class="token comment">#              | \_| ''\---/'' | |</span>
+<span class="token comment">#               \ .-\__ `-` ___/-. /</span>
+<span class="token comment">#            ___`. .' /--.--\ `. . __</span>
+<span class="token comment">#         ."" '&lt; `.___\_&lt;|>_/___.' >'"".</span>
+<span class="token comment">#        | | : `- \`.;`\ _ /`;.`/ - ` : | |</span>
+<span class="token comment">#          \ \ `-. \_ __\ /__ _/ .-` / /</span>
+<span class="token comment">#  ======`-.____`-.___\_____/___.-`____.-'======</span>
+<span class="token comment">#                     `=---='</span>
+<span class="token comment"># </span>
+<span class="token comment">#  .............................................</span>
+<span class="token comment">#           佛祖保佑             永无BUG</span>
+<span class="token comment">#</span>
+
+
+<span class="token comment"># region imports</span>
+<span class="token keyword">from</span> AlgorithmImports <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token keyword">from</span> datetime <span class="token keyword">import</span> timedelta
+<span class="token comment"># endregion</span>
+<span class="token keyword">class</span> <span class="token class-name">TurtleTrading</span><span class="token punctuation">(</span>QCAlgorithm<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">initialize</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>set_start_date<span class="token punctuation">(</span><span class="token number">2024</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>set_end_date<span class="token punctuation">(</span><span class="token number">2025</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>set_cash<span class="token punctuation">(</span><span class="token number">10000000</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>SetBrokerageModel<span class="token punctuation">(</span>BrokerageName<span class="token punctuation">.</span>InteractiveBrokersBrokerage<span class="token punctuation">,</span> AccountType<span class="token punctuation">.</span>Margin<span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>nasdaq <span class="token operator">=</span> self<span class="token punctuation">.</span>add_equity<span class="token punctuation">(</span><span class="token string">'AAPL'</span><span class="token punctuation">,</span> Resolution<span class="token punctuation">.</span>DAILY<span class="token punctuation">,</span> data_normalization_mode<span class="token operator">=</span>DataNormalizationMode<span class="token punctuation">.</span>RAW<span class="token punctuation">)</span><span class="token punctuation">.</span>symbol
+
+
+        self<span class="token punctuation">.</span>entry_length <span class="token operator">=</span> <span class="token number">20</span>
+        self<span class="token punctuation">.</span>exit_length <span class="token operator">=</span> <span class="token number">10</span>
+        self<span class="token punctuation">.</span>atr_length <span class="token operator">=</span> <span class="token number">14</span>
+        self<span class="token punctuation">.</span>risk_percent <span class="token operator">=</span> <span class="token number">0.01</span>
+        self<span class="token punctuation">.</span>max_position <span class="token operator">=</span> <span class="token number">10</span>
+        self<span class="token punctuation">.</span>donchian_entry <span class="token operator">=</span> self<span class="token punctuation">.</span>dch<span class="token punctuation">(</span>self<span class="token punctuation">.</span>nasdaq<span class="token punctuation">,</span> self<span class="token punctuation">.</span>entry_length<span class="token punctuation">,</span> self<span class="token punctuation">.</span>entry_length<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>donchian_exit <span class="token operator">=</span> self<span class="token punctuation">.</span>dch<span class="token punctuation">(</span>self<span class="token punctuation">.</span>nasdaq<span class="token punctuation">,</span> self<span class="token punctuation">.</span>exit_length<span class="token punctuation">,</span> self<span class="token punctuation">.</span>exit_length<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>_bb <span class="token operator">=</span> self<span class="token punctuation">.</span>bb<span class="token punctuation">(</span>self<span class="token punctuation">.</span>nasdaq<span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">1.6</span><span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>long_entry <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">'inf'</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>short_entry <span class="token operator">=</span> <span class="token number">0</span>
+        self<span class="token punctuation">.</span>long_exit <span class="token operator">=</span> <span class="token number">0</span>
+        self<span class="token punctuation">.</span>short_exit <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">'inf'</span><span class="token punctuation">)</span>
+
+        <span class="token comment"># self.set_warm_up(50)</span>
+
+        self<span class="token punctuation">.</span>_atr <span class="token operator">=</span> self<span class="token punctuation">.</span>atr<span class="token punctuation">(</span>self<span class="token punctuation">.</span>nasdaq<span class="token punctuation">,</span> self<span class="token punctuation">.</span>atr_length<span class="token punctuation">,</span> MovingAverageType<span class="token punctuation">.</span>Simple<span class="token punctuation">,</span> Resolution<span class="token punctuation">.</span>DAILY<span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>entry_price <span class="token operator">=</span> <span class="token number">0</span>
+        self<span class="token punctuation">.</span>position_count <span class="token operator">=</span> <span class="token number">0</span>
+        self<span class="token punctuation">.</span>stop_loss <span class="token operator">=</span> <span class="token number">0</span>
+        self<span class="token punctuation">.</span>consolidate<span class="token punctuation">(</span>self<span class="token punctuation">.</span>nasdaq<span class="token punctuation">,</span> timedelta<span class="token punctuation">(</span>days<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>on_consolidated<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">on_consolidated</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> bar<span class="token punctuation">:</span> TradeBar<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># Plot the candlestick data</span>
+        self<span class="token punctuation">.</span>plot<span class="token punctuation">(</span><span class="token string">"DonchianChannel"</span><span class="token punctuation">,</span> <span class="token string">"AAPL"</span><span class="token punctuation">,</span> bar<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">on_data</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> data<span class="token punctuation">:</span> Slice<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>donchian_entry<span class="token punctuation">.</span>is_ready <span class="token keyword">and</span> self<span class="token punctuation">.</span>donchian_exit<span class="token punctuation">.</span>is_ready <span class="token keyword">and</span> self<span class="token punctuation">.</span>_atr<span class="token punctuation">.</span>is_ready<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span>
+
+        current_price <span class="token operator">=</span> self<span class="token punctuation">.</span>securities<span class="token punctuation">[</span>self<span class="token punctuation">.</span>nasdaq<span class="token punctuation">]</span><span class="token punctuation">.</span>price
+
+
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>donchian_entry<span class="token punctuation">.</span>is_ready<span class="token punctuation">:</span>
+            <span class="token comment"># The current value of self._dch is represented by self._dch.current.value</span>
+            self<span class="token punctuation">.</span>plot<span class="token punctuation">(</span><span class="token string">"DonchianChannel"</span><span class="token punctuation">,</span> <span class="token string">"dch"</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>donchian_entry<span class="token punctuation">.</span>current<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+            <span class="token comment"># Plot all attributes of self._dch</span>
+            self<span class="token punctuation">.</span>plot<span class="token punctuation">(</span><span class="token string">"DonchianChannel"</span><span class="token punctuation">,</span> <span class="token string">"upper_band"</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>donchian_entry<span class="token punctuation">.</span>upper_band<span class="token punctuation">.</span>current<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>plot<span class="token punctuation">(</span><span class="token string">"DonchianChannel"</span><span class="token punctuation">,</span> <span class="token string">"lower_band"</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>donchian_entry<span class="token punctuation">.</span>lower_band<span class="token punctuation">.</span>current<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+
+
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>_atr<span class="token punctuation">.</span>is_ready<span class="token punctuation">:</span>
+            <span class="token comment"># The current value of self._atr is represented by self._atr.current.value</span>
+            self<span class="token punctuation">.</span>plot<span class="token punctuation">(</span><span class="token string">"AverageTrueRange"</span><span class="token punctuation">,</span> <span class="token string">"atr"</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>_atr<span class="token punctuation">.</span>current<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+
+
+        holdings <span class="token operator">=</span> self<span class="token punctuation">.</span>portfolio<span class="token punctuation">[</span>self<span class="token punctuation">.</span>nasdaq<span class="token punctuation">]</span><span class="token punctuation">.</span>quantity
+        dollar_risk <span class="token operator">=</span> self<span class="token punctuation">.</span>portfolio<span class="token punctuation">.</span>total_portfolio_value <span class="token operator">*</span> self<span class="token punctuation">.</span>risk_percent
+        atr_value <span class="token operator">=</span> self<span class="token punctuation">.</span>_atr<span class="token punctuation">.</span>current<span class="token punctuation">.</span>value
+        contract_value <span class="token operator">=</span> current_price
+        position_size <span class="token operator">=</span> dollar_risk <span class="token operator">/</span> <span class="token punctuation">(</span>atr_value <span class="token operator">*</span> contract_value<span class="token punctuation">)</span>
+        position_size <span class="token operator">=</span> dollar_risk <span class="token operator">/</span> <span class="token punctuation">(</span>atr_value<span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> holdings <span class="token operator">==</span> <span class="token number">0</span> <span class="token keyword">and</span> current_price <span class="token operator">></span> self<span class="token punctuation">.</span>long_entry<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>debug<span class="token punctuation">(</span><span class="token string">'long'</span><span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>entry_price <span class="token operator">=</span> current_price
+            self<span class="token punctuation">.</span>stop_loss <span class="token operator">=</span> current_price <span class="token operator">-</span> <span class="token number">2</span> <span class="token operator">*</span> atr_value
+            self<span class="token punctuation">.</span>position_count <span class="token operator">=</span> <span class="token number">1</span>
+            self<span class="token punctuation">.</span>market_order<span class="token punctuation">(</span>self<span class="token punctuation">.</span>nasdaq<span class="token punctuation">,</span> position_size<span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> holdings <span class="token operator">==</span> <span class="token number">0</span> <span class="token keyword">and</span> current_price <span class="token operator">>=</span> self<span class="token punctuation">.</span>short_entry<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>debug<span class="token punctuation">(</span><span class="token string">'short'</span><span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>entry_price <span class="token operator">=</span> current_price
+            self<span class="token punctuation">.</span>stop_loss <span class="token operator">=</span> current_price <span class="token operator">+</span> <span class="token number">2</span> <span class="token operator">*</span> atr_value
+            self<span class="token punctuation">.</span>position_count <span class="token operator">=</span> <span class="token number">1</span>
+            self<span class="token punctuation">.</span>market_order<span class="token punctuation">(</span>self<span class="token punctuation">.</span>nasdaq<span class="token punctuation">,</span> <span class="token operator">-</span>position_size<span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> <span class="token builtin">abs</span><span class="token punctuation">(</span>holdings<span class="token punctuation">)</span> <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>max_position <span class="token operator">*</span> position_size<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>holdings <span class="token operator">></span> <span class="token number">0</span> <span class="token keyword">and</span> current_price <span class="token operator">></span> self<span class="token punctuation">.</span>entry_price <span class="token operator">+</span> <span class="token number">0.5</span> <span class="token operator">*</span> atr_value<span class="token punctuation">)</span> <span class="token keyword">or</span> \
+               <span class="token punctuation">(</span>holdings <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token keyword">and</span> current_price <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>entry_price <span class="token operator">-</span> <span class="token number">0.5</span> <span class="token operator">*</span> atr_value<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>position_count <span class="token operator">+=</span> <span class="token number">1</span>
+                self<span class="token punctuation">.</span>entry_price <span class="token operator">=</span> current_price
+                self<span class="token punctuation">.</span>market_order<span class="token punctuation">(</span>self<span class="token punctuation">.</span>nasdaq<span class="token punctuation">,</span> position_size <span class="token keyword">if</span> holdings <span class="token operator">></span> <span class="token number">0</span> <span class="token keyword">else</span> <span class="token operator">-</span>position_size<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>holdings <span class="token operator">></span> <span class="token number">0</span> <span class="token keyword">and</span> current_price <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>stop_loss<span class="token punctuation">)</span> <span class="token keyword">or</span> \
+           <span class="token punctuation">(</span>holdings <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token keyword">and</span> current_price <span class="token operator">></span> self<span class="token punctuation">.</span>stop_loss<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>liquidate<span class="token punctuation">(</span>self<span class="token punctuation">.</span>nasdaq<span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>position_count <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">if</span> holdings <span class="token operator">></span> <span class="token number">0</span> <span class="token keyword">and</span> current_price <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>long_exit<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>liquidate<span class="token punctuation">(</span>self<span class="token punctuation">.</span>nasdaq<span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> holdings <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token keyword">and</span> current_price <span class="token operator">&lt;=</span> self<span class="token punctuation">.</span>short_exit<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>liquidate<span class="token punctuation">(</span>self<span class="token punctuation">.</span>nasdaq<span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>long_entry <span class="token operator">=</span> self<span class="token punctuation">.</span>donchian_entry<span class="token punctuation">.</span>upper_band<span class="token punctuation">.</span>current<span class="token punctuation">.</span>value
+        self<span class="token punctuation">.</span>short_entry <span class="token operator">=</span> self<span class="token punctuation">.</span>donchian_entry<span class="token punctuation">.</span>lower_band<span class="token punctuation">.</span>current<span class="token punctuation">.</span>value
+        self<span class="token punctuation">.</span>short_entry <span class="token operator">=</span> self<span class="token punctuation">.</span>_bb<span class="token punctuation">.</span>upper_band<span class="token punctuation">.</span>current<span class="token punctuation">.</span>value
+        self<span class="token punctuation">.</span>long_exit <span class="token operator">=</span> self<span class="token punctuation">.</span>donchian_exit<span class="token punctuation">.</span>lower_band<span class="token punctuation">.</span>current<span class="token punctuation">.</span>value
+        self<span class="token punctuation">.</span>short_exit <span class="token operator">=</span> self<span class="token punctuation">.</span>donchian_exit<span class="token punctuation">.</span>upper_band<span class="token punctuation">.</span>current<span class="token punctuation">.</span>value
+        self<span class="token punctuation">.</span>short_exit <span class="token operator">=</span> self<span class="token punctuation">.</span>_bb<span class="token punctuation">.</span>lower_band<span class="token punctuation">.</span>current<span class="token punctuation">.</span>value<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/../images/20/bollTurtleAAPL" alt="在AAPL上2024全年收益，太棒了"></p>
+<p>上图可以看到，在AAPL上回测，2024带来了46%的收益率，超过基准（从年初一直持有股票到年末，35%）足足有10%。</p>
+<p>Deepseek详细策略回测报告：</p>
+<p>一、回测概况 </p>
+<ul>
+<li><p>回测时间：2024年1月1日 - 2025年1月1日 </p>
+</li>
+<li><p>初始资金：$10,000,000 </p>
+</li>
+<li><p>最终资金：$14,671,111.10（增长46.71%） 年化收益率：46.61%（按复利计算） 交易次数：33次（中等频率，约每周交易1次）</p>
+</li>
+</ul>
+<p>二、风险与稳定性</p>
+<ul>
+<li>最大回撤：16.5%（历史上资金最大下跌幅度，较高风险）</li>
+<li>资金波动率：20%（收益波动较大，属于高风险策略）</li>
+<li>夏普比率：1.37（数值超过1，说明收益稳定性优秀）</li>
+<li>索提诺比率：1.345（考虑亏损风险后，稳定性仍较好）</li>
+</ul>
+<p>三、市场表现对比</p>
+<ul>
+<li>相对市场的超额收益（Alpha）：0（收益与市场同步，未跑赢或跑输大盘）</li>
+<li>市场相关性（Beta）：0（策略表现与市场波动完全无关）</li>
+<li>信息比率：1.645（策略跑赢市场基准，表现优于同类）</li>
+</ul>
+<p>四、交易成本与适用性</p>
+<ul>
+<li>总交易费用：$4,415.68（成本较低，仅占收益的0.03%）</li>
+<li>换手率：3.97%（交易频率较低，适合长期持仓）</li>
+<li>适合资金规模：$3.1亿美元（适用于大资金量操作）</li>
+<li>主要交易资产：AAPL相关金融产品（代码AAPLR735QTJ8XC9X）</li>
+</ul>
+<p>这个策略收益非常突出（46.71%增长，年化46.61%），但风险也较高：<br><strong>优点</strong>：</p>
+<ol>
+<li>高胜率（80%交易盈利），平均盈利是亏损的4.4倍；</li>
+<li>与市场无关（Beta&#x3D;0），适合分散投资风险；</li>
+<li>交易成本极低，适合大资金操作（3.1亿美元容量）。</li>
+</ol>
+<p><strong>缺点</strong>：</p>
+<ol>
+<li>最大亏损达16.5%，短期可能承受较大波动；</li>
+<li>收益完全依赖策略本身（Alpha&#x3D;0），若策略失效可能失去盈利来源；</li>
+<li>与市场零相关性（Beta&#x3D;0）既是优点也是缺点，无法享受市场整体上涨红利。</li>
+</ol>
+<p><strong>适用场景</strong>：适合风险承受能力较强、需要配置与市场无关策略的大型资金，但需警惕高波动风险。</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>换一个例子，在百度BIDU这种年年跌的股票上，2024全年跌幅超过24%，使用上述策略能将跌幅控制在3%左右。</p>
+<p>海龟交易策略还是很强大的，这还只是简单改进了一个点，后续加入更多分析后，应该能进一步提升指标，就留给未来大家自己发掘了。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://zcpisme.github.io">Chupeng Zheng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zcpisme.github.io/2025/04/02/21_2025-04-02-%E8%85%BE%E8%AE%AF%E4%BA%91%E4%B8%8A%E7%9A%84SSL%E8%AF%81%E4%B9%A6%E4%B8%8EHTTPS/">https://zcpisme.github.io/2025/04/02/21_2025-04-02-%E8%85%BE%E8%AE%AF%E4%BA%91%E4%B8%8A%E7%9A%84SSL%E8%AF%81%E4%B9%A6%E4%B8%8EHTTPS/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zcpisme.github.io" target="_blank">ZCP妙妙屋</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/HTTPS/">HTTPS</a><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></div><div class="post-share"><div class="social-share" data-image="/../images/0cover/19cover.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chupeng Zheng</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/zcpisme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chupeng-zheng-858348211/" target="_blank" title="linkedin"><i class="fab fa-linkedin"></i></a><a class="social-icon" href="mailto:zhengcp00@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">写日记是对自己说话，和对镜子说话一样，但后者有点神经病。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B%E7%9A%84%E6%B5%B7%E9%BE%9F%E4%BA%A4%E6%98%93%E7%AD%96%E7%95%A5"><span class="toc-text">改进的海龟交易策略</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-text">最后</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/04/02/21_2025-04-02-%E8%85%BE%E8%AE%AF%E4%BA%91%E4%B8%8A%E7%9A%84SSL%E8%AF%81%E4%B9%A6%E4%B8%8EHTTPS/" title="腾讯云上的SSL证书与HTTPS"><img src="/../images/0cover/19cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="腾讯云上的SSL证书与HTTPS"/></a><div class="content"><a class="title" href="/2025/04/02/21_2025-04-02-%E8%85%BE%E8%AE%AF%E4%BA%91%E4%B8%8A%E7%9A%84SSL%E8%AF%81%E4%B9%A6%E4%B8%8EHTTPS/" title="腾讯云上的SSL证书与HTTPS">腾讯云上的SSL证书与HTTPS</a><time datetime="2025-04-02T09:36:00.000Z" title="发表于 2025-04-02 17:36:00">2025-04-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/02/16/20_2025-02-16-%E6%B5%B7%E9%BE%9F%E4%BA%A4%E6%98%93%E7%AD%96%E7%95%A5%E7%A7%81%E4%BA%BA%E5%AE%9A%E5%88%B6/" title="海龟交易策略私人定制"><img src="/../images/0cover/19cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="海龟交易策略私人定制"/></a><div class="content"><a class="title" href="/2025/02/16/20_2025-02-16-%E6%B5%B7%E9%BE%9F%E4%BA%A4%E6%98%93%E7%AD%96%E7%95%A5%E7%A7%81%E4%BA%BA%E5%AE%9A%E5%88%B6/" title="海龟交易策略私人定制">海龟交易策略私人定制</a><time datetime="2025-02-16T04:24:00.000Z" title="发表于 2025-02-16 12:24:00">2025-02-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/02/16/19_2025-02-16-%E6%B5%B7%E9%BE%9F%E4%BA%A4%E6%98%93%E7%AD%96%E7%95%A5/" title="海龟交易策略"><img src="/../images/0cover/19cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="海龟交易策略"/></a><div class="content"><a class="title" href="/2025/02/16/19_2025-02-16-%E6%B5%B7%E9%BE%9F%E4%BA%A4%E6%98%93%E7%AD%96%E7%95%A5/" title="海龟交易策略">海龟交易策略</a><time datetime="2025-02-16T02:24:00.000Z" title="发表于 2025-02-16 10:24:00">2025-02-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/20/18_2025-01-20-%E4%BF%9D%E6%8A%A4%E6%80%A7%E7%9C%8B%E8%B7%8C%E6%9C%9F%E6%9D%83/" title="保护性看跌期权"><img src="/../images/0cover/18cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="保护性看跌期权"/></a><div class="content"><a class="title" href="/2025/01/20/18_2025-01-20-%E4%BF%9D%E6%8A%A4%E6%80%A7%E7%9C%8B%E8%B7%8C%E6%9C%9F%E6%9D%83/" title="保护性看跌期权">保护性看跌期权</a><time datetime="2025-01-20T14:11:00.000Z" title="发表于 2025-01-20 22:11:00">2025-01-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/13/17_2025-01-13-VNPY%E4%B8%8EIB/" title="VNPY平台对接IB盈透证券"><img src="/../images/0cover/17cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VNPY平台对接IB盈透证券"/></a><div class="content"><a class="title" href="/2025/01/13/17_2025-01-13-VNPY%E4%B8%8EIB/" title="VNPY平台对接IB盈透证券">VNPY平台对接IB盈透证券</a><time datetime="2025-01-13T08:43:00.000Z" title="发表于 2025-01-13 16:43:00">2025-01-13</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
