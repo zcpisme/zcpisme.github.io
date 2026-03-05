@@ -1,0 +1,356 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ESP 物联网开发入门3：WOL唤醒 | ZCP妙妙屋</title><meta name="author" content="Chupeng Zheng"><meta name="copyright" content="Chupeng Zheng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ESP 物联网开发入门3：WOL唤醒在上一篇里，我们给电脑装了个“物理手指”来按开关。虽然稳，但总觉得不够科技感。如果你的主板支持，其实完全可以用一种更“黑客”的方式——**Wake on LAN (WOL)**。 简单来说，这就是给网卡发一个“暗号”，让它自己去叫醒整台电脑。 一、 什么是“魔术包”？电脑关机后，只要电源没拔，网卡其实还在偷偷“值班”。它在等一个特定的数据包，也就是魔术包（Mag">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ESP 物联网开发入门3：WOL唤醒">
+<meta property="og:url" content="https://zcpisme.github.io/2026/03/05/24_2026-03-05-ESP%20%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A83%EF%BC%9AWOL%E5%94%A4%E9%86%92/index.html">
+<meta property="og:site_name" content="ZCP妙妙屋">
+<meta property="og:description" content="ESP 物联网开发入门3：WOL唤醒在上一篇里，我们给电脑装了个“物理手指”来按开关。虽然稳，但总觉得不够科技感。如果你的主板支持，其实完全可以用一种更“黑客”的方式——**Wake on LAN (WOL)**。 简单来说，这就是给网卡发一个“暗号”，让它自己去叫醒整台电脑。 一、 什么是“魔术包”？电脑关机后，只要电源没拔，网卡其实还在偷偷“值班”。它在等一个特定的数据包，也就是魔术包（Mag">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gcore.jsdelivr.net/gh/zcpisme/images_hosting@main/cover/24cover.jpg">
+<meta property="article:published_time" content="2026-03-05T14:12:00.000Z">
+<meta property="article:modified_time" content="2026-03-05T13:51:02.221Z">
+<meta property="article:author" content="Chupeng Zheng">
+<meta property="article:tag" content="单片机">
+<meta property="article:tag" content="Arduino">
+<meta property="article:tag" content="ESP">
+<meta property="article:tag" content="物联网">
+<meta property="article:tag" content="嵌入式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gcore.jsdelivr.net/gh/zcpisme/images_hosting@main/cover/24cover.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ESP 物联网开发入门3：WOL唤醒",
+  "url": "https://zcpisme.github.io/2026/03/05/24_2026-03-05-ESP%20%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A83%EF%BC%9AWOL%E5%94%A4%E9%86%92/",
+  "image": "https://gcore.jsdelivr.net/gh/zcpisme/images_hosting@main/cover/24cover.jpg",
+  "datePublished": "2026-03-05T14:12:00.000Z",
+  "dateModified": "2026-03-05T13:51:02.221Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chupeng Zheng",
+      "url": "https://zcpisme.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zcpisme.github.io/2026/03/05/24_2026-03-05-ESP%20%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A83%EF%BC%9AWOL%E5%94%A4%E9%86%92/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-JSY5BEFW3M"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'G-JSY5BEFW3M')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'G-JSY5BEFW3M', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ESP 物联网开发入门3：WOL唤醒',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">47</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/en/"><i class="fa-fw fas fa-language"></i><span> English</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://gcore.jsdelivr.net/gh/zcpisme/images_hosting@main/cover/24cover.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">ZCP妙妙屋</span></a><a class="nav-page-title" href="/"><span class="site-name">ESP 物联网开发入门3：WOL唤醒</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/en/"><i class="fa-fw fas fa-language"></i><span> English</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">ESP 物联网开发入门3：WOL唤醒</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-05T14:12:00.000Z" title="发表于 2026-03-05 22:12:00">2026-03-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-05T13:51:02.221Z" title="更新于 2026-03-05 21:51:02">2026-03-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%89%A9%E8%81%94%E7%BD%91/">物联网</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">989</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="ESP-物联网开发入门3：WOL唤醒"><a href="#ESP-物联网开发入门3：WOL唤醒" class="headerlink" title="ESP 物联网开发入门3：WOL唤醒"></a>ESP 物联网开发入门3：WOL唤醒</h2><p>在上一篇里，我们给电脑装了个“物理手指”来按开关。虽然稳，但总觉得不够科技感。如果你的主板支持，其实完全可以用一种更“黑客”的方式——**Wake on LAN (WOL)**。</p>
+<p>简单来说，这就是给网卡发一个“暗号”，让它自己去叫醒整台电脑。</p>
+<h3 id="一、-什么是“魔术包”？"><a href="#一、-什么是“魔术包”？" class="headerlink" title="一、 什么是“魔术包”？"></a>一、 什么是“魔术包”？</h3><p>电脑关机后，只要电源没拔，网卡其实还在偷偷“值班”。它在等一个特定的数据包，也就是<strong>魔术包（Magic Packet）</strong>。</p>
+<p>魔术包的结构很奇葩：<strong>6个 <code>0xFF</code> 后面跟着 16遍你的网卡 MAC 地址</strong>。网卡一旦在局域网里抓到这个组合，就会像打了鸡血一样瞬间触发开机。</p>
+<h3 id="二、-动手前的“三大关”"><a href="#二、-动手前的“三大关”" class="headerlink" title="二、 动手前的“三大关”"></a>二、 动手前的“三大关”</h3><p>别急着烧录代码，WOL 最大的坑通常在配置上：</p>
+<ol>
+<li><strong>BIOS 允许</strong>：开机狂按 F10（取决于电脑，我的是F10） 进入 BIOS，把 <code>Wake on LAN</code> 或者 <code>Power On by PCI-E</code> 这种选项改成 <code>Enabled</code>。</li>
+<li><strong>网卡允许</strong>：在 Windows 设备管理器里找到你的网卡，属性里的“电源管理”必须勾选“允许此设备唤醒计算机”。</li>
+<li><strong>必须插网线</strong>：绝大多数主板的内置 WiFi 关机后就断电了。所以，<strong>被唤醒的电脑必须插网线</strong>（ESP32 倒是可以用 WiFi 发包）。</li>
+<li>当然了，有的无线网卡有WoWLAN功能，但好像听说效果一言难尽。</li>
+</ol>
+<hr>
+<h3 id="三、-终极合体代码"><a href="#三、-终极合体代码" class="headerlink" title="三、 终极合体代码"></a>三、 终极合体代码</h3><p>这段代码不仅能发 WOL 包，还保留了上一章的舵机控制。你可以通过 Blinker App 上的两个按钮，随心所欲选择开机方式。</p>
+<p>C++</p>
+<pre class="line-numbers language-none"><code class="language-none">#define BLINKER_WIFI
+#include &lt;Blinker.h&gt;
+#include &lt;Servo.h&gt;
+#include &lt;WiFiUdp.h&gt;
+
+&#x2F;&#x2F; 填入你的凭证
+char auth[] &#x3D; &quot;你的Blinker Secret Key&quot;;
+char ssid[] &#x3D; &quot;你的WiFi名字&quot;;
+char pswd[] &#x3D; &quot;你的WiFi密码&quot;;
+
+Servo myServo;
+WiFiUDP udp;
+
+&#x2F;&#x2F; &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 配置区 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+byte mac[6] &#x3D; &#123;0x24,0xFB,0xE3,0x61,0x7A,0x37&#125;; &#x2F;&#x2F; 电脑的 MAC 地址
+IPAddress broadcastIp(192,168,1,255);        &#x2F;&#x2F; 局域网广播地址
+int wolPort &#x3D; 9;
+
+&#x2F;&#x2F; 定义 App 里的按钮
+BlinkerButton ButtonServo(&quot;btn-boot&quot;); &#x2F;&#x2F; 对应舵机按钮
+BlinkerButton ButtonWOL(&quot;btn-wol&quot;);   &#x2F;&#x2F; 对应 WOL 按钮
+
+&#x2F;&#x2F; &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 发送魔术包的逻辑 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+void sendWOL() &#123;
+    byte magicPacket[102];
+
+    &#x2F;&#x2F; 填充 6 个 0xFF
+    for(int i&#x3D;0; i&lt;6; i++) magicPacket[i] &#x3D; 0xFF;
+
+    &#x2F;&#x2F; 重复 16 次 MAC 地址
+    for(int i&#x3D;1; i&lt;&#x3D;16; i++) memcpy(&amp;magicPacket[i*6], mac, 6);
+
+    udp.beginPacket(broadcastIp, wolPort);
+    udp.write(magicPacket, 102);
+    udp.endPacket();
+
+    Serial.println(&quot;魔术包已发出！&quot;);
+&#125;
+
+&#x2F;&#x2F; &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 按钮回调：网络唤醒 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+void wol_callback(const String &amp; state) &#123;
+    Serial.println(&quot;收到 WOL 指令&quot;);
+    sendWOL();
+&#125;
+
+&#x2F;&#x2F; &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 按钮回调：物理舵机 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+void servo_callback(const String &amp; state) &#123;
+    Serial.println(&quot;收到舵机指令&quot;);
+    myServo.write(60); &#x2F;&#x2F; 压下
+    Blinker.delay(500);
+    myServo.write(0);  &#x2F;&#x2F; 松开
+&#125;
+
+void setup() &#123;
+    Serial.begin(115200);
+
+    &#x2F;&#x2F; 初始化舵机 (D1&#x2F;GPIO5)
+    myServo.attach(5); 
+    myServo.write(0);
+
+    Blinker.begin(auth, ssid, pswd);
+    udp.begin(9);
+
+    &#x2F;&#x2F; 绑定 App 按钮
+    ButtonServo.attach(servo_callback);
+    ButtonWOL.attach(wol_callback);
+&#125;
+
+void loop() &#123;
+    Blinker.run();
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="四、-如何拿到-MAC-地址？"><a href="#四、-如何拿到-MAC-地址？" class="headerlink" title="四、 如何拿到 MAC 地址？"></a>四、 如何拿到 MAC 地址？</h3><p>代码里那个 <code>mac[6]</code> 必须是你电脑的。找法很简单：</p>
+<ol>
+<li>在你要唤醒的电脑上打开 CMD。</li>
+<li>输入 <code>ipconfig /all</code>。</li>
+<li>找到“以太网适配器”，里面的 <strong>物理地址（Physical Address）</strong> 就是它。</li>
+</ol>
+<blockquote>
+<p><strong>注意</strong>：要把横杠（-）改成代码里的 <code>0x</code> 格式。</p>
+</blockquote>
+<h3 id="五、本系列总结"><a href="#五、本系列总结" class="headerlink" title="五、本系列总结"></a>五、本系列总结</h3><p>在这个系列中，我们使用 ESP32 实现了两种远程开机方案：</p>
+<p>方案一：<strong>手指机器人</strong></p>
+<p>通过舵机模拟按下电源键。</p>
+<p>方案二：<strong>Wake on LAN</strong></p>
+<p>通过网络发送魔术包唤醒电脑。</p>
+<p>两种方案各有特点，但都可以实现同一个目标：</p>
+<blockquote>
+<p>在世界任何地方远程启动自己的电脑。</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://zcpisme.github.io">Chupeng Zheng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zcpisme.github.io/2026/03/05/24_2026-03-05-ESP%20%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A83%EF%BC%9AWOL%E5%94%A4%E9%86%92/">https://zcpisme.github.io/2026/03/05/24_2026-03-05-ESP%20%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A83%EF%BC%9AWOL%E5%94%A4%E9%86%92/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zcpisme.github.io" target="_blank">ZCP妙妙屋</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a><a class="post-meta__tags" href="/tags/Arduino/">Arduino</a><a class="post-meta__tags" href="/tags/ESP/">ESP</a><a class="post-meta__tags" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/">物联网</a><a class="post-meta__tags" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a></div><div class="post-share"><div class="social-share" data-image="https://gcore.jsdelivr.net/gh/zcpisme/images_hosting@main/cover/24cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/03/05/23_2026-03-05-ESP%20%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A82%EF%BC%9A%E6%89%8B%E6%8C%87%E6%9C%BA%E5%99%A8%E4%BA%BA/" title="ESP 物联网开发入门2：手指机器人"><img class="cover" src="https://gcore.jsdelivr.net/gh/zcpisme/images_hosting@main/cover/23cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">ESP 物联网开发入门2：手指机器人</div></div><div class="info-2"><div class="info-item-1">既然上一篇咱们已经让 ESP8266 的自带灯亮起来了，那说明开发环境已经通了。今天咱们玩点硬核的：做一个“物理外挂”，远程帮咱按电脑开机键。  ESP 物联网开发入门2：手指机器人这次的主角依然是性价比之王 ESP8266（NodeMCU），配合一个 2 块 9 包邮的舵机（Servo）。 1. 硬件“全家桶”除了之前的 NodeMCU，你还需要准备：  SG90 舵机： 这种蓝色的小舵机就行，力气够大，正好能按动电脑键。 杜邦线： 3 根（公对母）。 双面胶&#x2F;蓝丁胶： 用来把舵机粘在电脑机箱上。   2. 接线图：别接错，会没力气舵机有三根线，颜色通常是固定的：  棕色（地线）： 接 ESP8266 的 G”&gt;GND。  红色（电源）： 接 ESP8266 的 VIN 引脚（注意：VIN 输出的是 USB 的 5V 电压，接 3.3V 舵机可能转不动。byd我的vin针脚虚焊没电，不过实测3.3V带的动）。  黄色（信号）： 接 ESP8266 的 D1（对应代码里的 GPIO 5）。 连接如图：     3. 准备“遥控器”：点灯科技（Blinker）写代码...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/03/05/23_2026-03-05-ESP%20%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A82%EF%BC%9A%E6%89%8B%E6%8C%87%E6%9C%BA%E5%99%A8%E4%BA%BA/" title="ESP 物联网开发入门2：手指机器人"><img class="cover" src="https://gcore.jsdelivr.net/gh/zcpisme/images_hosting@main/cover/23cover.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-03-05</div><div class="info-item-2">ESP 物联网开发入门2：手指机器人</div></div><div class="info-2"><div class="info-item-1">既然上一篇咱们已经让 ESP8266 的自带灯亮起来了，那说明开发环境已经通了。今天咱们玩点硬核的：做一个“物理外挂”，远程帮咱按电脑开机键。  ESP 物联网开发入门2：手指机器人这次的主角依然是性价比之王 ESP8266（NodeMCU），配合一个 2 块 9 包邮的舵机（Servo）。 1. 硬件“全家桶”除了之前的 NodeMCU，你还需要准备：  SG90 舵机： 这种蓝色的小舵机就行，力气够大，正好能按动电脑键。 杜邦线： 3 根（公对母）。 双面胶&#x2F;蓝丁胶： 用来把舵机粘在电脑机箱上。   2. 接线图：别接错，会没力气舵机有三根线，颜色通常是固定的：  棕色（地线）： 接 ESP8266 的 G”&gt;GND。  红色（电源）： 接 ESP8266 的 VIN 引脚（注意：VIN 输出的是 USB 的 5V 电压，接 3.3V 舵机可能转不动。byd我的vin针脚虚焊没电，不过实测3.3V带的动）。  黄色（信号）： 接 ESP8266 的 D1（对应代码里的 GPIO 5）。 连接如图：     3. 准备“遥控器”：点灯科技（Blinker）写代码...</div></div></div></a><a class="pagination-related" href="/2026/03/04/22_2026-03-04-ESP%20%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A81%EF%BC%9A%E4%BB%8E%E9%9B%B6%E7%82%B9%E4%BA%AE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E9%A2%97%E7%81%AF/" title="ESP 物联网开发入门1：从零点亮你的第一颗灯"><img class="cover" src="https://gcore.jsdelivr.net/gh/zcpisme/images_hosting@main/cover/22cover.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-03-04</div><div class="info-item-2">ESP 物联网开发入门1：从零点亮你的第一颗灯</div></div><div class="info-2"><div class="info-item-1">ESP 物联网开发入门：从零点亮你的第一颗灯很多小伙伴想搞“远程开机”、“智能家居”，对着网上的教程看半天，结果被各种名词劝退。其实物联网没那么玄乎。今天咱不整那些虚头巴脑的，直接用大白话带你把单片机和 ESP32 摸透，顺便帮大家避几个我踩过的坑。  1. 到底什么是单片机？你可以把它理解为一个“被阉割过的电脑”。 电脑有 CPU、内存、硬盘，单片机也有，只不过为了省电、便宜、体积小，性能缩减到了极致。  电脑： 运行 Windows，能打游戏、剪视频，但很贵、费电。 单片机： 没有桌面，只运行你写进去的一段代码。它能控制电饭煲什么时候跳闸，能让遥控器发射红外线。  一句话总结： 它就是个只会干体力活、极其听话的“微型大脑”。  2. 为什么大家都推荐 ESP？ 单片机有很多种，比如老掉牙的 51，或者满大街的 STM32。但对于玩物联网（IoT）的人来说，ESP 系列才是真香。  ESP8266： 曾经的老大哥，便宜到只要几块钱，自带 WiFi。如果你预算极低且不需要太多花里胡哨的功能，可以用它。 ESP32： 现在的主流。多了蓝牙、双核 CPU（跑得快）、更多的引脚。建议新...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chupeng Zheng</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">47</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/zcpisme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chupeng-zheng-858348211/" target="_blank" title="linkedin"><i class="fab fa-linkedin"></i></a><a class="social-icon" href="mailto:zhengcp00@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">写日记是对自己说话，和对镜子说话一样，但后者有点神经病。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ESP-%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A83%EF%BC%9AWOL%E5%94%A4%E9%86%92"><span class="toc-text">ESP 物联网开发入门3：WOL唤醒</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81-%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E9%AD%94%E6%9C%AF%E5%8C%85%E2%80%9D%EF%BC%9F"><span class="toc-text">一、 什么是“魔术包”？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81-%E5%8A%A8%E6%89%8B%E5%89%8D%E7%9A%84%E2%80%9C%E4%B8%89%E5%A4%A7%E5%85%B3%E2%80%9D"><span class="toc-text">二、 动手前的“三大关”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81-%E7%BB%88%E6%9E%81%E5%90%88%E4%BD%93%E4%BB%A3%E7%A0%81"><span class="toc-text">三、 终极合体代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81-%E5%A6%82%E4%BD%95%E6%8B%BF%E5%88%B0-MAC-%E5%9C%B0%E5%9D%80%EF%BC%9F"><span class="toc-text">四、 如何拿到 MAC 地址？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%9C%AC%E7%B3%BB%E5%88%97%E6%80%BB%E7%BB%93"><span class="toc-text">五、本系列总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/24_2026-03-05-ESP%20%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A83%EF%BC%9AWOL%E5%94%A4%E9%86%92/" title="ESP 物联网开发入门3：WOL唤醒"><img src="https://gcore.jsdelivr.net/gh/zcpisme/images_hosting@main/cover/24cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP 物联网开发入门3：WOL唤醒"/></a><div class="content"><a class="title" href="/2026/03/05/24_2026-03-05-ESP%20%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A83%EF%BC%9AWOL%E5%94%A4%E9%86%92/" title="ESP 物联网开发入门3：WOL唤醒">ESP 物联网开发入门3：WOL唤醒</a><time datetime="2026-03-05T14:12:00.000Z" title="发表于 2026-03-05 22:12:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/23_2026-03-05-ESP%20%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A82%EF%BC%9A%E6%89%8B%E6%8C%87%E6%9C%BA%E5%99%A8%E4%BA%BA/" title="ESP 物联网开发入门2：手指机器人"><img src="https://gcore.jsdelivr.net/gh/zcpisme/images_hosting@main/cover/23cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP 物联网开发入门2：手指机器人"/></a><div class="content"><a class="title" href="/2026/03/05/23_2026-03-05-ESP%20%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A82%EF%BC%9A%E6%89%8B%E6%8C%87%E6%9C%BA%E5%99%A8%E4%BA%BA/" title="ESP 物联网开发入门2：手指机器人">ESP 物联网开发入门2：手指机器人</a><time datetime="2026-03-05T12:21:00.000Z" title="发表于 2026-03-05 20:21:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/04/22_2026-03-04-ESP%20%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A81%EF%BC%9A%E4%BB%8E%E9%9B%B6%E7%82%B9%E4%BA%AE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E9%A2%97%E7%81%AF/" title="ESP 物联网开发入门1：从零点亮你的第一颗灯"><img src="https://gcore.jsdelivr.net/gh/zcpisme/images_hosting@main/cover/22cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP 物联网开发入门1：从零点亮你的第一颗灯"/></a><div class="content"><a class="title" href="/2026/03/04/22_2026-03-04-ESP%20%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A81%EF%BC%9A%E4%BB%8E%E9%9B%B6%E7%82%B9%E4%BA%AE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E9%A2%97%E7%81%AF/" title="ESP 物联网开发入门1：从零点亮你的第一颗灯">ESP 物联网开发入门1：从零点亮你的第一颗灯</a><time datetime="2026-03-04T14:55:00.000Z" title="发表于 2026-03-04 22:55:00">2026-03-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/04/02/21_2025-04-02-%E8%85%BE%E8%AE%AF%E4%BA%91%E4%B8%8A%E7%9A%84SSL%E8%AF%81%E4%B9%A6%E4%B8%8EHTTPS/" title="腾讯云上的SSL证书与HTTPS"><img src="https://gcore.jsdelivr.net/gh/zcpisme/images_hosting@main/cover/21cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="腾讯云上的SSL证书与HTTPS"/></a><div class="content"><a class="title" href="/2025/04/02/21_2025-04-02-%E8%85%BE%E8%AE%AF%E4%BA%91%E4%B8%8A%E7%9A%84SSL%E8%AF%81%E4%B9%A6%E4%B8%8EHTTPS/" title="腾讯云上的SSL证书与HTTPS">腾讯云上的SSL证书与HTTPS</a><time datetime="2025-04-02T09:36:00.000Z" title="发表于 2025-04-02 17:36:00">2025-04-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/02/16/20_2025-02-16-%E6%B5%B7%E9%BE%9F%E4%BA%A4%E6%98%93%E7%AD%96%E7%95%A5%E7%A7%81%E4%BA%BA%E5%AE%9A%E5%88%B6/" title="海龟交易策略私人定制"><img src="https://gcore.jsdelivr.net/gh/zcpisme/images_hosting@main/cover/19cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="海龟交易策略私人定制"/></a><div class="content"><a class="title" href="/2025/02/16/20_2025-02-16-%E6%B5%B7%E9%BE%9F%E4%BA%A4%E6%98%93%E7%AD%96%E7%95%A5%E7%A7%81%E4%BA%BA%E5%AE%9A%E5%88%B6/" title="海龟交易策略私人定制">海龟交易策略私人定制</a><time datetime="2025-02-16T04:24:00.000Z" title="发表于 2025-02-16 12:24:00">2025-02-16</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
